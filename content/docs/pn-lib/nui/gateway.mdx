@@ -1,0 +1,56 @@
+---
+title: Gateway
+description: Lua-to-NUI message bridge.
+---
+
+<Callout type="info">Client-side only.</Callout>
+
+Gateway wraps `SendNUIMessage` and `RegisterNUICallback` with automatic JSON handling and error capture.
+
+## `lib.nui.gateway.send`
+
+```lua
+lib.nui.gateway.send(action: string, data?: table)
+```
+
+Sends a message to the NUI frontend. Equivalent to `SendNUIMessage({ action = action, data = data })`.
+
+## `lib.nui.gateway.on`
+
+```lua
+lib.nui.gateway.on(action: string, fn: fun(data: table, cb: fun(res: any)))
+```
+
+Registers a NUI callback. `fn` receives the payload and a callback to respond with. You must call `cb` to unblock the frontend's `fetch`.
+
+## `lib.nui.gateway.setFocus`
+
+```lua
+lib.nui.gateway.setFocus(focus: boolean, cursor?: boolean)
+```
+
+Calls `SetNuiFocus(focus, cursor ?? focus)`.
+
+## Example
+
+```lua
+lib.nui.gateway.send('setVisible', { visible = true })
+
+lib.nui.gateway.on('close', function(data, cb)
+    lib.nui.gateway.setFocus(false)
+    cb({ ok = true })
+end)
+```
+
+```js
+// frontend — receive message
+window.addEventListener('message', (e) => {
+    if (e.data.action === 'setVisible') show(e.data.data.visible);
+});
+
+// frontend — send callback
+const res = await fetch(`https://${GetParentResourceName()}/close`, {
+    method: 'POST',
+    body: JSON.stringify({}),
+});
+```

@@ -5,16 +5,16 @@ import {
   DocsPage,
   DocsTitle,
   MarkdownCopyButton,
-  ViewOptionsPopover,
 } from 'fumadocs-ui/layouts/docs/page';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
-import { gitConfig } from '@/lib/shared';
+import { Download, GitFork } from 'lucide-react';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
+  if (!params.slug || params.slug.length === 0) redirect('/docs/information');
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
@@ -27,10 +27,26 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
       <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
       <div className="flex flex-row gap-2 items-center border-b pb-6">
         <MarkdownCopyButton markdownUrl={markdownUrl} />
-        <ViewOptionsPopover
-          markdownUrl={markdownUrl}
-          githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
-        />
+        {page.data.github && (
+          <>
+            <a
+              href={`https://github.com/Project-Nucleus/${page.data.github}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium border border-fd-border rounded-md px-3 py-1.5 transition-colors hover:bg-fd-accent"
+            >
+              <GitFork className="h-3.5 w-3.5" />
+              Repository
+            </a>
+            <a
+              href={`https://github.com/Project-Nucleus/${page.data.github}/releases/latest/download/${page.data.github}.zip`}
+              className="inline-flex items-center gap-1.5 text-xs font-medium bg-fd-primary text-fd-primary-foreground rounded-md px-3 py-1.5 transition-opacity hover:opacity-80"
+            >
+              <Download className="h-3.5 w-3.5" />
+              Download
+            </a>
+          </>
+        )}
       </div>
       <DocsBody>
         <MDX
@@ -45,11 +61,12 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 }
 
 export async function generateStaticParams() {
-  return source.generateParams();
+  return [{ slug: [] }, ...source.generateParams()];
 }
 
 export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
   const params = await props.params;
+  if (!params.slug || params.slug.length === 0) return {};
   const page = source.getPage(params.slug);
   if (!page) notFound();
 

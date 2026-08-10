@@ -1,0 +1,41 @@
+---
+title: Logger
+description: Levelled structured logger.
+---
+
+## `lib.logger.new`
+
+```lua
+lib.logger.new(prefix?: string, level?: 'debug'|'info'|'warn'|'error') -> Logger
+```
+
+Creates a logger instance. Output is prefixed with `[resourceName][prefix]`. Level defaults to `debug`.
+
+## Methods
+
+Each method accepts an optional trailing `table` as a structured context object, which is passed to the active formatter.
+
+```lua
+Logger:debug(msg: string, ...)
+Logger:info(msg: string, ...)
+Logger:warn(msg: string, ...)
+Logger:error(msg: string, ...)
+```
+
+## `lib.logger.addFormatter`
+
+```lua
+lib.logger.addFormatter(name: string, fn: fun(line: string, ctx: table): string)
+```
+
+Registers a custom formatter. The active formatter is selected by the `snowy_log_style` convar. Built-in styles: `'inline'` (comma-separated, default) and `'block'` (newline-separated).
+
+## Example
+
+```lua
+local log = lib.logger.new('payments', 'info')
+
+log:info('Processing transaction', { amount = 500, player = source })
+log:warn('Low funds', { balance = 10 })
+log:error('Transaction failed')
+```

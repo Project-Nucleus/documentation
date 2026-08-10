@@ -1,0 +1,57 @@
+---
+title: Class
+description: Prototype-based class factory.
+---
+
+Creates class tables with optional single inheritance.
+
+## `lib.class.new`
+
+```lua
+lib.class.new(parent?: table) -> table
+```
+
+Creates a new class. Pass a parent class to inherit all its keys; `cls.super` is set to the parent.
+
+Every class gets two methods injected automatically:
+
+### `cls:create`
+
+```lua
+cls:create(...) -> table
+```
+
+Instantiates the class. Calls `instance:init(...)` if the method exists.
+
+### `cls:is`
+
+```lua
+cls:is(klass: table) -> boolean
+```
+
+Walks the metatable chain to test whether the instance belongs to `klass`.
+
+## Example
+
+```lua
+local Animal = lib.class.new()
+
+function Animal:init(name)
+    self.name = name
+end
+
+function Animal:speak()
+    print(self.name .. ' makes a noise.')
+end
+
+local Dog = lib.class.new(Animal)
+
+function Dog:speak()
+    print(self.name .. ' barks.')
+end
+
+local d = Dog:create('Rex')
+d:speak()         --> Rex barks.
+print(d:is(Dog))    --> true
+print(d:is(Animal)) --> true
+```

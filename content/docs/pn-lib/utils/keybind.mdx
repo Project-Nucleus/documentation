@@ -1,0 +1,49 @@
+---
+title: Keybind
+description: Client-side key mapping.
+---
+
+<Callout type="info">Client-side only.</Callout>
+
+Keybinds created via `lib.keybind` are automatically re-registered when `pn_lib` restarts.
+
+## `lib.keybind.add`
+
+```lua
+lib.keybind.add(opts) -> { disable: fun(self, val: boolean) }
+```
+
+Registers a key binding. Returns a handle.
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | `string` | Unique identifier |
+| `description` | `string?` | Shown in key bindings settings |
+| `defaultKey` | `string?` | Default key (e.g. `'E'`, `'F6'`) |
+| `onPressed` | `fun()` | Called when the key is pressed |
+
+## Handle methods
+
+### `handle:disable`
+
+```lua
+handle:disable(val: boolean)
+```
+
+Enables or disables the keybind at runtime.
+
+## Example
+
+```lua
+local bind = lib.keybind.add({
+    name        = 'openInventory',
+    description = 'Open your inventory',
+    defaultKey  = 'F2',
+    onPressed   = function()
+        openInventory()
+    end,
+})
+
+bind:disable(true)  -- disable
+bind:disable(false) -- re-enable
+```

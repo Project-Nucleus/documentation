@@ -1,0 +1,60 @@
+---
+title: Recorder
+description: Event timeline recorder with circular buffer.
+---
+
+## `lib.recorder.new`
+
+```lua
+lib.recorder.new(limit?: integer) -> Recorder
+```
+
+Creates a recorder with a circular buffer capped at `limit` (default 256).
+
+## Methods
+
+### `Recorder:record`
+
+```lua
+Recorder:record(event: string, payload: table)
+```
+
+Appends `{ t, event, data }` to the timeline. Evicts the oldest entry when the buffer is full.
+
+### `Recorder:attach`
+
+```lua
+Recorder:attach(dispatcher: Dispatcher)
+```
+
+Monkey-patches `dispatcher.dispatch` to automatically record every dispatched event.
+
+### `Recorder:dump`
+
+```lua
+Recorder:dump() -> table[]
+```
+
+Returns the full timeline array.
+
+### `Recorder:clear`
+
+```lua
+Recorder:clear()
+```
+
+Resets the timeline.
+
+## Example
+
+```lua
+local rec = lib.recorder.new(100)
+local events = lib.dispatcher.new()
+
+rec:attach(events)
+
+events:dispatch('transfer', { from = 1, to = 2, amount = 500 })
+
+local timeline = rec:dump()
+print(timeline[1].event) -- transfer
+```

@@ -1,0 +1,60 @@
+---
+title: Natives
+description: Async native wrappers.
+---
+
+<Callout type="info">Client-side only.</Callout>
+
+## `lib.natives.requestModel`
+
+```lua
+lib.natives.requestModel(model: string|integer, time?: integer) -> boolean
+```
+
+Requests a model by name or hash. Polls until the model loads or `time` ms elapses (default 5000). Returns whether the model loaded.
+
+## `lib.natives.requestAnimDict`
+
+```lua
+lib.natives.requestAnimDict(dict: string, time?: integer) -> boolean
+```
+
+Same pattern for animation dictionaries.
+
+## `lib.natives.getNearbyVehicles`
+
+```lua
+lib.natives.getNearbyVehicles(
+    coords: vector3,
+    dist: number
+) -> { vehicle: integer, distance: number, coords: vector3 }[]
+```
+
+Returns vehicles from the `CVehicle` pool within `dist` units, sorted by distance ascending.
+
+## `lib.natives.getNearbyPlayers`
+
+```lua
+lib.natives.getNearbyPlayers(
+    coords: vector3,
+    dist: number,
+    includeSelf?: boolean
+) -> { player: integer, ped: integer, distance: number }[]
+```
+
+Returns nearby players within `dist` units.
+
+## Example
+
+```lua
+local loaded = lib.natives.requestModel('adder')
+if not loaded then
+    print('Model failed to load')
+    return
+end
+
+local nearby = lib.natives.getNearbyVehicles(GetEntityCoords(PlayerPedId()), 50.0)
+for _, v in ipairs(nearby) do
+    print('Vehicle', v.vehicle, 'at', v.distance, 'm')
+end
+```

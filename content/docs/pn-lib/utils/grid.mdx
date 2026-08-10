@@ -1,0 +1,99 @@
+---
+title: Grid
+description: 1000-unit spatial grid for proximity queries.
+---
+
+Divides the map into 1000-unit cells for efficient proximity lookups.
+
+<Tabs items={['Shared', 'Client', 'Server']}>
+<Tab value="Shared">
+
+### `lib.grid.cellAt`
+
+```lua
+lib.grid.cellAt(x: number, y: number) -> cx: integer, cy: integer
+```
+
+Converts world coordinates to cell indices.
+
+### `lib.grid.cellKey`
+
+```lua
+lib.grid.cellKey(cx: integer, cy: integer) -> string
+```
+
+Returns `"cx,cy"`.
+
+### `lib.grid.cellAtCoord`
+
+```lua
+lib.grid.cellAtCoord(x: number, y: number) -> string
+```
+
+Combines `cellAt` and `cellKey`.
+
+### `lib.grid.cellBounds`
+
+```lua
+lib.grid.cellBounds(cx: integer, cy: integer) -> { minX, minY, maxX, maxY }
+```
+
+Returns the world-space bounds of a cell.
+
+</Tab>
+<Tab value="Client">
+
+### `lib.grid.getCurrentCell`
+
+```lua
+lib.grid.getCurrentCell() -> string?
+```
+
+Returns the local player's current cell key, updated every 500 ms.
+
+### `lib.grid.onCellChange`
+
+```lua
+lib.grid.onCellChange(fn: fun(newCell: string, oldCell: string?, cx: integer, cy: integer))
+```
+
+Fires whenever the local player crosses into a new cell.
+
+## Example
+
+```lua
+lib.grid.onCellChange(function(newCell, oldCell, cx, cy)
+    TriggerServerEvent('myResource:updateCell', newCell)
+end)
+```
+
+</Tab>
+<Tab value="Server">
+
+### `lib.grid.getPlayersInCell`
+
+```lua
+lib.grid.getPlayersInCell(cellKey: string) -> integer[]
+```
+
+Returns server IDs of players whose last reported cell matches `cellKey`.
+
+### `lib.grid.getPlayerCell`
+
+```lua
+lib.grid.getPlayerCell(src: integer) -> string?
+```
+
+Returns the last reported cell key for player `src`.
+
+## Example
+
+```lua
+RegisterNetEvent('myResource:updateCell', function(cellKey)
+    local players = lib.grid.getPlayersInCell(cellKey)
+    print(#players, 'players in same cell as', source)
+end)
+```
+
+</Tab>
+</Tabs>

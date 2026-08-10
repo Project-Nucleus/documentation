@@ -1,0 +1,53 @@
+---
+title: Object
+description: Object pool for reusing class instances.
+---
+
+Reduces allocations by recycling instances instead of garbage collecting them.
+
+## `lib.object.pool`
+
+```lua
+lib.object.pool(cls: table, prewarm?: integer) -> ObjectPool
+```
+
+Creates a pool for `cls`. Pass `prewarm` to pre-allocate bare instances.
+
+## Methods
+
+### `Pool:acquire`
+
+```lua
+Pool:acquire(...) -> table
+```
+
+Returns a recycled or freshly created instance. Calls `obj:init(...)` on it.
+
+### `Pool:release`
+
+```lua
+Pool:release(obj: table)
+```
+
+Calls `obj:destroy()` if it exists, wipes all keys, and returns the object to the pool.
+
+## Example
+
+```lua
+local Bullet = lib.class.new()
+
+function Bullet:init(x, y)
+    self.x, self.y = x, y
+end
+
+function Bullet:destroy()
+    -- cleanup if needed
+end
+
+local pool = lib.object.pool(Bullet, 50) -- prewarm 50
+
+local b = pool:acquire(100, 200)
+print(b.x) -- 100
+
+pool:release(b)
+```

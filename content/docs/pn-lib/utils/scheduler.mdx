@@ -1,0 +1,57 @@
+---
+title: Scheduler
+description: Thread utility wrappers.
+---
+
+## `lib.scheduler.spawn`
+
+```lua
+lib.scheduler.spawn(fn: fun())
+```
+
+Spawns `fn` in a new thread (`CreateThread`).
+
+## `lib.scheduler.sleep`
+
+```lua
+lib.scheduler.sleep(ms: integer)
+```
+
+Yields the current thread for `ms` milliseconds (`Wait(ms)`).
+
+## `lib.scheduler.delay`
+
+```lua
+lib.scheduler.delay(ms: integer, fn: fun())
+```
+
+Calls `fn` once after `ms` milliseconds.
+
+## `lib.scheduler.interval`
+
+```lua
+lib.scheduler.interval(interval: integer, fn: fun()) -> fun()
+```
+
+Calls `fn` on a repeating loop every `interval` ms. Returns a cancel function.
+
+## `lib.scheduler.yield`
+
+```lua
+lib.scheduler.yield()
+```
+
+Yields for one tick (`Wait(0)`).
+
+## Example
+
+```lua
+local cancel = lib.scheduler.interval(1000, function()
+    print('tick', GetGameTimer())
+end)
+
+lib.scheduler.delay(5000, function()
+    cancel()
+    print('stopped')
+end)
+```

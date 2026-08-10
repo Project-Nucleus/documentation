@@ -1,0 +1,40 @@
+---
+title: Contracts
+description: Design-by-contract function wrapping (no-ops in production).
+---
+
+Wraps functions with preconditions and postconditions. In production (`snowy_prod = true`), `wrap` returns the original function unchanged.
+
+## `lib.contracts.wrap`
+
+```lua
+lib.contracts.wrap(
+    fn: fun(...): any,
+    pre: fun(...),
+    post?: fun(result, ...)
+) -> fun(...): any
+```
+
+Returns a wrapped function that calls `pre(...)`, then `fn(...)`, then `post(result, ...)`.
+
+## `lib.contracts.schema`
+
+```lua
+lib.contracts.schema(schema: string[]) -> fun(...)
+```
+
+Returns a precondition function that checks each argument's type against the corresponding entry in `schema`. Errors if any type mismatches.
+
+## Example
+
+```lua
+local safeAdd = lib.contracts.wrap(
+    function(a, b) return a + b end,
+    lib.contracts.schema({ 'number', 'number' }),
+    function(result)
+        lib.assertions.assert(result > 0, 'result must be positive')
+    end
+)
+
+print(safeAdd(2, 3)) -- 5
+```

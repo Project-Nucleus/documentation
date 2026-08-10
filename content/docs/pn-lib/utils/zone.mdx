@@ -1,0 +1,91 @@
+---
+title: Zone
+description: Polygon, box, and sphere trigger zones.
+---
+
+<Callout type="info">Client-side only.</Callout>
+
+Zones fire `onEnter(self)` and `onExit(self)` as the local player crosses the boundary. Checks run every 100 ms using a grid-accelerated loop. Debug wireframes render when `snowy_debug` is `true` or the zone has `debug = true`.
+
+Zones created via `lib.zone` are automatically re-created when `pn_lib` restarts.
+
+## `lib.zone.box`
+
+```lua
+lib.zone.box(def) -> Zone
+```
+
+**`def`** fields:
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `coords` | `vector3` | required | Center of the box |
+| `size` | `vector3` | required | Half-extents |
+| `heading` | `number` | `0` | Rotation in degrees |
+| `onEnter` | `fun(self)` | | Fires on entry |
+| `onExit` | `fun(self)` | | Fires on exit |
+| `debug` | `boolean` | `false` | Draw wireframe |
+
+## `lib.zone.sphere`
+
+```lua
+lib.zone.sphere(def) -> Zone
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `coords` | `vector3` | Center |
+| `radius` | `number` | Radius |
+| `onEnter` | `fun(self)` | |
+| `onExit` | `fun(self)` | |
+| `debug` | `boolean` | |
+
+## `lib.zone.poly`
+
+```lua
+lib.zone.poly(def) -> Zone
+```
+
+2D polygon with Z extents. Uses ray-casting for the inside test.
+
+| Field | Type | Description |
+|---|---|---|
+| `points` | `vector2[]` | Polygon vertices |
+| `minZ` | `number` | Minimum Z |
+| `maxZ` | `number` | Maximum Z |
+| `onEnter` | `fun(self)` | |
+| `onExit` | `fun(self)` | |
+| `debug` | `boolean` | |
+
+## `Zone:isInside`
+
+```lua
+Zone:isInside(x: number, y: number, z: number) -> boolean
+```
+
+Tests whether the coordinate is inside the zone.
+
+## `Zone:remove`
+
+```lua
+Zone:remove()
+```
+
+Unregisters the zone. Stops all callbacks.
+
+## Example
+
+```lua
+local zone = lib.zone.box({
+    coords  = vector3(100.0, 200.0, 30.0),
+    size    = vector3(5.0, 5.0, 3.0),
+    onEnter = function(self)
+        print('Entered zone')
+    end,
+    onExit  = function(self)
+        print('Left zone')
+    end,
+})
+
+zone:remove()
+```

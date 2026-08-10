@@ -1,0 +1,48 @@
+---
+title: Assertions
+description: Guard assertions that no-op in production.
+---
+
+All functions are no-ops when the `snowy_prod` convar is `true`. Use them to catch programmer errors during development.
+
+## `lib.assertions.assert`
+
+```lua
+lib.assertions.assert(cond: boolean, msg?: string)
+```
+
+Errors with `msg` (or `'assertion failed'`) if `cond` is falsy.
+
+## `lib.assertions.equals`
+
+```lua
+lib.assertions.equals(a: any, b: any, msg?: string)
+```
+
+Errors if `a ~= b`.
+
+## `lib.assertions.type`
+
+```lua
+lib.assertions.type(value: any, expected: string, msg?: string)
+```
+
+Errors if `type(value) ~= expected`.
+
+## `lib.assertions.notnull`
+
+```lua
+lib.assertions.notnull(value: any, msg?: string)
+```
+
+Errors if `value == nil`.
+
+## Example
+
+```lua
+local function pay(player, amount)
+    lib.assertions.type(player, 'number', 'player must be a number')
+    lib.assertions.assert(amount > 0, 'amount must be positive')
+    -- ...
+end
+```

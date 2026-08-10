@@ -1,0 +1,47 @@
+---
+title: Registry
+description: Shared key/value store with automatic resource-scoped cleanup.
+---
+
+Module-level store. Keys are tagged with the resource that set them and removed automatically when that resource stops.
+
+## `lib.registry.set`
+
+```lua
+lib.registry.set(key: string, value: any)
+```
+
+Stores `value` under `key`, tagged to the current resource.
+
+## `lib.registry.get`
+
+```lua
+lib.registry.get(key: string) -> any
+```
+
+Retrieves a stored value.
+
+## `lib.registry.delete`
+
+```lua
+lib.registry.delete(key: string)
+```
+
+Removes a key immediately.
+
+## `lib.registry.purge`
+
+```lua
+lib.registry.purge(resource: string)
+```
+
+Removes all keys tagged to `resource`. Called automatically on `onResourceStop`.
+
+## Example
+
+```lua
+lib.registry.set('myResource:config', { maxPlayers = 32 })
+
+local cfg = lib.registry.get('myResource:config')
+print(cfg.maxPlayers) -- 32
+```

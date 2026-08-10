@@ -1,0 +1,40 @@
+---
+title: Loader
+description: Resource file loader with dot-path accessor.
+---
+
+## `lib.loader.load`
+
+```lua
+lib.loader.load(path: string, format?: 'json' | 'lua') -> Loader
+```
+
+Loads and parses a file immediately. Format defaults to `'json'` for `.json` paths, `'lua'` otherwise.
+
+## Methods
+
+### `Loader:reload`
+
+```lua
+Loader:reload()
+```
+
+Re-reads the file from disk and re-parses.
+
+### `Loader:get`
+
+```lua
+Loader:get(key: string, default?: any) -> any
+```
+
+Traverses parsed data with a dot-separated key (e.g. `'server.maxPlayers'`). Returns `default` if any segment is missing.
+
+## Example
+
+```lua
+-- config.json: { "server": { "maxPlayers": 32 } }
+local config = lib.loader.load('config.json')
+
+print(config:get('server.maxPlayers')) -- 32
+print(config:get('server.name', 'Unnamed')) -- Unnamed
+```

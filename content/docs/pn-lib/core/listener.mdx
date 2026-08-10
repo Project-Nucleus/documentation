@@ -1,0 +1,36 @@
+---
+title: Listener
+description: Managed subscription handle.
+---
+
+Wraps a remove function with an `active` flag so removal is idempotent.
+
+## Fields
+
+| Field | Type | Description |
+|---|---|---|
+| `active` | `boolean` | `true` until `remove()` is called |
+
+## `Listener:remove`
+
+```lua
+Listener:remove()
+```
+
+Calls the stored remover once, then clears it and sets `active = false`. Safe to call multiple times.
+
+## Usage
+
+Listeners are returned by `Scope:track`. You rarely create them directly.
+
+```lua
+local scope = lib.scope.create()
+local remove = AddEventHandler('someEvent', handler)
+
+local listener = lib.listener.create(remove)
+scope:track(listener)
+
+print(listener.active) -- true
+listener:remove()
+print(listener.active) -- false
+```

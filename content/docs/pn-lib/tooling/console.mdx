@@ -1,0 +1,55 @@
+---
+title: Console
+description: Typed command registration with argument parsing.
+---
+
+Wraps `RegisterCommand` with positional argument parsing and type casting. Auto-registers a `<resourceName>:commands` command that lists all registered commands.
+
+## `lib.console.register`
+
+```lua
+lib.console.register(
+    name: string,
+    args: ArgDef[],
+    handler: fun(source: integer, args: table),
+    restricted?: boolean
+)
+```
+
+**`ArgDef`** fields:
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | `string` | Argument name |
+| `type` | `'string'`\|`'number'`\|`'boolean'` | Cast target (default `'string'`) |
+| `validate` | `fun(v): boolean, string?` | Optional validator |
+
+Args are cast to their declared types before `handler` is called.
+
+## `lib.console.unregister`
+
+```lua
+lib.console.unregister(name: string)
+```
+
+Removes the handler record. Does not un-register from FiveM.
+
+## `lib.console.list`
+
+```lua
+lib.console.list() -> string[]
+```
+
+Returns a sorted list of registered command names.
+
+## Example
+
+```lua
+lib.console.register('giveitem', {
+    { name = 'target', type = 'number' },
+    { name = 'item',   type = 'string' },
+    { name = 'count',  type = 'number' },
+}, function(source, args)
+    print(args.target, args.item, args.count)
+end, true)
+```

@@ -1,0 +1,50 @@
+---
+title: Locale
+description: JSON localisation loader.
+---
+
+Loads translations from `locales/<lang>.json` inside the resource. Falls back to `en` if the target language file is missing.
+
+The active language is read from convars in this order: `snowy_locale`, `locale`, then `'en'`.
+
+## `lib.locale.new`
+
+```lua
+lib.locale.new(resourceName: string, lang?: string) -> Locale
+```
+
+Creates a locale instance for `resourceName`. You rarely call this directly — `init.lua` injects a `locale()` global that wraps `lib.locale` for the current resource.
+
+## `Locale:get`
+
+```lua
+Locale:get(key: string, ...) -> string
+```
+
+Looks up `key`. Applies `string.format` with `...` if args are provided. Returns `key` unchanged if not found.
+
+## Global shorthand
+
+```lua
+locale(key: string, ...) -> string
+```
+
+Available in every resource that loads `init.lua`.
+
+## File format
+
+```json
+// locales/en.json
+{
+  "greet": "Hello, %s!",
+  "balance": "Your balance is $%d"
+}
+```
+
+## Example
+
+```lua
+print(locale('greet', 'John'))    -- Hello, John!
+print(locale('balance', 1500))    -- Your balance is $1500
+print(locale('missing.key'))      -- missing.key
+```

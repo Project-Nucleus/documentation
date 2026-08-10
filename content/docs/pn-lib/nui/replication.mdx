@@ -1,0 +1,87 @@
+---
+title: Replication
+description: Server-to-NUI state replication.
+---
+
+The server owns the state. Clients receive diffs and forward them into the NUI via `SendNUIMessage`.
+
+<Tabs items={['Server', 'Client']}>
+<Tab value="Server">
+
+### `lib.nui.replication.set`
+
+```lua
+lib.nui.replication.set(key: string, value: any, target?: number|number[])
+```
+
+Sets `key` on the named store. `target` can be a player ID, list of IDs, or `nil` for broadcast.
+
+### `lib.nui.replication.delete`
+
+```lua
+lib.nui.replication.delete(key: string, target?: number|number[])
+```
+
+Removes `key` from the store.
+
+### `lib.nui.replication.getState`
+
+```lua
+lib.nui.replication.getState() -> table
+```
+
+Returns the current full server-side state.
+
+## Example
+
+```lua
+lib.nui.replication.set('balance', 5000, playerId)
+```
+
+</Tab>
+<Tab value="Client">
+
+### `lib.nui.replication.onUpdate`
+
+```lua
+lib.nui.replication.onUpdate(fn: fun(key: string, value: any))
+```
+
+Fires whenever the local copy of a key changes.
+
+### `lib.nui.replication.getLocal`
+
+```lua
+lib.nui.replication.getLocal(key: string) -> any
+```
+
+Returns the locally replicated value.
+
+The client automatically forwards each update into the NUI as:
+
+```lua
+{ action = '__replicate__', data = { key, value } }
+```
+
+Listen for it in your frontend:
+
+```js
+window.addEventListener('message', (e) => {
+    if (e.data.action === '__replicate__') {
+        store[e.data.data.key] = e.data.data.value;
+    }
+});
+```
+
+## Example
+
+```lua
+lib.nui.replication.onUpdate(function(key, value)
+    if key == 'balance' then
+        print('New balance:', value)
+    end
+end)
+```
+
+</Tab>
+</Tabs>

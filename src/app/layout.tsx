@@ -1,6 +1,14 @@
 import { Inter } from 'next/font/google';
 import { Provider } from '@/components/provider';
+import type { Metadata } from 'next';
 import './global.css';
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s - Project Nucleus',
+    default: 'Project Nucleus',
+  },
+};
 
 const inter = Inter({
   subsets: ['latin'],

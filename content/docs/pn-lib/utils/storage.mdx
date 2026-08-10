@@ -1,0 +1,43 @@
+---
+title: Storage
+description: Persistent KVP storage using FiveM resource KVP.
+---
+
+<Callout type="info">Client-side only. FiveM resource KVP is a client-side API.</Callout>
+
+Wraps FiveM's resource KVP API with automatic JSON encoding/decoding.
+
+## `lib.storage.set`
+
+```lua
+lib.storage.set(key: string, value: any)
+```
+
+JSON-encodes `value` and writes it via `SetResourceKvp`.
+
+## `lib.storage.get`
+
+```lua
+lib.storage.get(key: string) -> any
+```
+
+Reads and JSON-decodes the stored value. Returns `nil` if the key is absent.
+
+## `lib.storage.delete`
+
+```lua
+lib.storage.delete(key: string)
+```
+
+Calls `DeleteResourceKvp`.
+
+## Example
+
+```lua
+lib.storage.set('settings', { volume = 0.8, hud = true })
+
+local settings = lib.storage.get('settings')
+print(settings.volume) -- 0.8
+
+lib.storage.delete('settings')
+```

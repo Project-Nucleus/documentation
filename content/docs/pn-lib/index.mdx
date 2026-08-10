@@ -1,0 +1,76 @@
+---
+title: PN Lib
+description: High-performance FiveM backend framework by Project Nucleus.
+github: pn_lib
+---
+
+PN Lib is a shared library that provides core infrastructure for Nucleus resources: event routing, RPC, zones, UI, NUI bridging, and more. Resources access it via the global `lib` proxy.
+
+## Installation
+
+Add `pn_lib` to your resource's `fxmanifest.lua`:
+
+```lua
+shared_script '@pn_lib/init.lua'
+```
+
+All modules are then available via the `lib` global:
+
+```lua
+lib.logger:info('Hello from my resource')
+lib.rpc.register('myRpc', function(source, data)
+    return { ok = true }
+end)
+```
+
+## Global API
+
+Beyond module access, `init.lua` injects three globals.
+
+### `lib`
+
+Lazy proxy to all PN Lib modules. First access to any key loads the module from the resource.
+
+```lua
+lib.rpc       -- RPC module
+lib.logger    -- Logger module
+lib.zone      -- Zone module
+-- etc.
+```
+
+### `cache` (client only)
+
+Auto-updating table with the local player's current entity handles.
+
+| Key | Value |
+|---|---|
+| `cache.ped` | `PlayerPedId()` |
+| `cache.vehicle` | Current vehicle or `nil` |
+| `cache.resource` | Current resource name |
+
+```lua
+lib.onCache('vehicle', function(vehicle)
+    if vehicle then
+        print('Entered vehicle', vehicle)
+    end
+end)
+```
+
+### `locale(key, ...)`
+
+Shorthand for `lib.locale:get(key, ...)`. Loads translations from `locales/<lang>.json`.
+
+```lua
+locale('ui.confirm')
+locale('welcome.message', playerName)
+```
+
+## Modules
+
+<Cards>
+  <Card title="Core" href="/docs/pn-lib/core/class" description="Class factory, dispatcher, RPC, scope, hooks" />
+  <Card title="Tooling" href="/docs/pn-lib/tooling/logger" description="Logger, result type, assertions, profiler" />
+  <Card title="Utils" href="/docs/pn-lib/utils/zone" description="Zones, points, cache, scheduler, validation, and more" />
+  <Card title="NUI" href="/docs/pn-lib/nui/gateway" description="NUI message bridge and state replication" />
+  <Card title="UI" href="/docs/pn-lib/ui" description="Cards, menus, dialogs, progress bars" />
+</Cards>

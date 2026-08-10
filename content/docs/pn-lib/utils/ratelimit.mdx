@@ -1,0 +1,53 @@
+---
+title: Rate Limit
+description: Token-bucket rate limiter.
+---
+
+## `lib.ratelimit.new`
+
+```lua
+lib.ratelimit.new(rate: number, window: integer, cap?: number) -> RateLimiter
+```
+
+Creates a rate limiter. `rate` tokens refill per `window` ms. `cap` is the bucket maximum (defaults to `rate`).
+
+## Methods
+
+### `RateLimiter:consume`
+
+```lua
+RateLimiter:consume(key: string, cost?: number) -> boolean
+```
+
+Attempts to consume `cost` tokens (default 1) for `key`. Returns `true` if allowed, `false` if insufficient tokens.
+
+### `RateLimiter:remove`
+
+```lua
+RateLimiter:remove(key: string)
+```
+
+Deletes a bucket.
+
+### `RateLimiter:reset`
+
+```lua
+RateLimiter:reset()
+```
+
+Clears all buckets.
+
+## Example
+
+```lua
+-- 5 requests per second per player
+local limiter = lib.ratelimit.new(5, 1000)
+
+RegisterNetEvent('myResource:action', function()
+    local src = source
+    if not limiter:consume(tostring(src)) then
+        return -- rate limited
+    end
+    -- handle action
+end)
+```

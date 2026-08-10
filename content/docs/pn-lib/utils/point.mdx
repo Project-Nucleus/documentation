@@ -1,0 +1,52 @@
+---
+title: Point
+description: Spherical proximity trigger with optional per-frame callback.
+---
+
+<Callout type="info">Client-side only.</Callout>
+
+Grid-accelerated proximity point. Fires enter/exit when the player crosses the distance threshold, and an optional `onNearby` callback while inside.
+
+Points created via `lib.point` are automatically re-created when `pn_lib` restarts.
+
+## `lib.point.new`
+
+```lua
+lib.point.new(def) -> Point
+```
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `coords` | `vector3` | required | World position |
+| `distance` | `number` | required | Trigger radius |
+| `onEnter` | `fun(self)` | | Fires when player enters |
+| `onExit` | `fun(self)` | | Fires when player exits |
+| `onNearby` | `fun(self, dist)` | | Fires while inside; receives current distance |
+| `nearbyInterval` | `integer` | `100` | `onNearby` interval in ms. `0` = every frame |
+| `debug` | `boolean` | `false` | Draw debug sphere |
+
+## `Point:remove`
+
+```lua
+Point:remove()
+```
+
+Unregisters the point. Stops all callbacks.
+
+## Example
+
+```lua
+local point = lib.point.new({
+    coords   = vector3(100.0, 200.0, 30.0),
+    distance = 10.0,
+    onEnter  = function(self)
+        lib.ui.showTextUI('Press E to interact')
+    end,
+    onExit   = function(self)
+        lib.ui.hideTextUI()
+    end,
+    onNearby = function(self, dist)
+        -- runs every 100ms while inside
+    end,
+})
+```

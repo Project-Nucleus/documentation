@@ -1,0 +1,62 @@
+---
+title: Dispatcher
+description: Synchronous and async pub-sub event bus.
+---
+
+Instance-based event bus. Multiple subscribers per event, each identified by an auto-incrementing integer ID. Subscribing returns a remove function.
+
+## `lib.dispatcher.new`
+
+```lua
+lib.dispatcher.new() -> Dispatcher
+```
+
+Creates a new dispatcher instance.
+
+## Methods
+
+### `Dispatcher:on`
+
+```lua
+Dispatcher:on(event: string, handler: fun(...)) -> fun()
+```
+
+Subscribes `handler` to `event`. Returns a zero-arg function that removes the subscription.
+
+### `Dispatcher:dispatch`
+
+```lua
+Dispatcher:dispatch(event: string, ...)
+```
+
+Calls all subscribers for `event` synchronously. Each handler runs inside `pcall`.
+
+### `Dispatcher:dispatchAsync`
+
+```lua
+Dispatcher:dispatchAsync(event: string, ...)
+```
+
+Same as `dispatch` but spawns each handler in its own `CreateThread`.
+
+### `Dispatcher:clear`
+
+```lua
+Dispatcher:clear(event: string)
+```
+
+Removes all subscriptions for `event`.
+
+## Example
+
+```lua
+local events = lib.dispatcher.new()
+
+local remove = events:on('playerDied', function(src)
+    print('Player', src, 'died')
+end)
+
+events:dispatch('playerDied', 5)
+
+remove() -- unsubscribe
+```

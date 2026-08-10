@@ -1,0 +1,37 @@
+---
+title: Dependency
+description: Runtime resource version gating.
+---
+
+## `lib.dependency.require`
+
+```lua
+lib.dependency.require(resource: string, minVersion?: string)
+```
+
+Errors if the resource is not in state `'started'`, or if its `version` metadata is below `minVersion`.
+
+## `lib.dependency.satisfies`
+
+```lua
+lib.dependency.satisfies(got: string, need: string) -> boolean
+```
+
+Compares two `MAJOR.MINOR.PATCH` version strings. Returns `true` if `got >= need`.
+
+## `lib.dependency.version`
+
+```lua
+lib.dependency.version() -> string
+```
+
+Returns the current resource's own `version` metadata from its `fxmanifest.lua`.
+
+## Example
+
+```lua
+-- Require ox_lib >= 3.0.0 before starting
+lib.dependency.require('ox_lib', '3.0.0')
+
+print(lib.dependency.version()) -- e.g. "1.2.0"
+```

@@ -1,0 +1,4 @@
+{
+  "title": "Core",
+  "pages": ["class", "dispatcher", "hook", "interceptor", "observable", "rpc", "scope", "registry", "listener", "object"]
+}

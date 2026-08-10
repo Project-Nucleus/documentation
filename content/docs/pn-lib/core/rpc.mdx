@@ -1,0 +1,56 @@
+---
+title: RPC
+description: Bidirectional coroutine-based RPC between client and server.
+---
+
+Lets the server call functions on a client and vice versa. Uses net events internally. Calls block the current coroutine until the response arrives.
+
+<Callout type="warn">
+  Register handlers on both sides. A server-side `register` handles calls from clients; a client-side `register` handles calls from the server.
+</Callout>
+
+## `lib.rpc.register`
+
+```lua
+lib.rpc.register(name: string, handler: fun(...): any)
+```
+
+Registers a handler for `name`. On the server the first argument to `handler` is the calling player's `source`.
+
+```lua
+-- server
+lib.rpc.register('getBalance', function(source)
+    return DB.getBalance(source)
+end)
+
+-- client
+lib.rpc.register('ping', function()
+    return 'pong'
+end)
+```
+
+## `lib.rpc.call`
+
+```lua
+-- server → client
+lib.rpc.call(target: integer, name: string, ...) -> any
+
+-- client → server
+lib.rpc.call(name: string, ...) -> any
+```
+
+Calls a handler on the remote side and waits for the result. Errors if the handler errors.
+
+```lua
+-- client calling server
+local balance = lib.rpc.call('getBalance')
+print('My balance:', balance)
+
+-- server calling client
+local response = lib.rpc.call(source, 'ping')
+print(response) -- pong
+```
+
+## Restart resilience
+
+Handlers registered with `lib.rpc.register` are replayed automatically when `pn_lib` restarts. You do not need to re-register them.

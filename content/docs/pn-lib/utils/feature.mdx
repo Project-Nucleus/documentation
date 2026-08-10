@@ -1,0 +1,52 @@
+---
+title: Feature
+description: Runtime environment detection.
+---
+
+## `lib.feature.gameBuild`
+
+```lua
+lib.feature.gameBuild() -> integer
+```
+
+Returns `GetGameBuildNumber()` on client, `0` on server.
+
+## `lib.feature.artifactVersion`
+
+```lua
+lib.feature.artifactVersion() -> string
+```
+
+Returns the `version` convar — the FXServer artifact version.
+
+## `lib.feature.hasNative`
+
+```lua
+lib.feature.hasNative(name: string) -> boolean
+```
+
+Returns `true` if `_G[name]` is a function. Use this to check for natives that may not exist on all game builds.
+
+## `lib.feature.isServer`
+
+```lua
+lib.feature.isServer() -> boolean
+```
+
+## `lib.feature.isClient`
+
+```lua
+lib.feature.isClient() -> boolean
+```
+
+## Example
+
+```lua
+if lib.feature.gameBuild() >= 2944 then
+    -- use newer API
+end
+
+if lib.feature.hasNative('SetVehicleNeonLightsColour') then
+    SetVehicleNeonLightsColour(vehicle, r, g, b)
+end
+```

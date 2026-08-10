@@ -1,0 +1,43 @@
+---
+title: Profiler
+description: Sampling profiler for measuring code performance.
+---
+
+## `lib.profiler.session`
+
+```lua
+lib.profiler.session(name: string) -> ProfilerSession
+```
+
+Creates a named profiling session.
+
+## Methods
+
+### `Session:span`
+
+```lua
+Session:span(label: string) -> fun()
+```
+
+Starts timing a span. Returns a stop function. Calling the stop function records elapsed milliseconds.
+
+### `Session:report`
+
+```lua
+Session:report()
+```
+
+Prints all spans: call count, average ms, and total ms.
+
+## Example
+
+```lua
+local prof = lib.profiler.session('database')
+
+local stop = prof:span('query')
+DB.query('SELECT * FROM players')
+stop()
+
+prof:report()
+-- [database] query: 3 calls, avg 12.4ms, total 37.2ms
+```

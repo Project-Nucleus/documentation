@@ -1,0 +1,80 @@
+---
+title: Queue
+description: Double-ended queue (deque).
+---
+
+## `lib.queue.new`
+
+```lua
+lib.queue.new() -> Queue
+```
+
+Creates an empty queue.
+
+## Methods
+
+### `Queue:pushBack`
+
+```lua
+Queue:pushBack(value: any)
+```
+
+Enqueues at the tail.
+
+### `Queue:pushFront`
+
+```lua
+Queue:pushFront(value: any)
+```
+
+Enqueues at the head.
+
+### `Queue:popFront`
+
+```lua
+Queue:popFront() -> any
+```
+
+Dequeues from the head. Returns `nil` if empty.
+
+### `Queue:popBack`
+
+```lua
+Queue:popBack() -> any
+```
+
+Dequeues from the tail. Returns `nil` if empty.
+
+### `Queue:peekFront`
+
+```lua
+Queue:peekFront() -> any
+```
+
+Reads the head without removing it.
+
+### `Queue:size`
+
+```lua
+Queue:size() -> integer
+```
+
+### `Queue:isEmpty`
+
+```lua
+Queue:isEmpty() -> boolean
+```
+
+## Example
+
+```lua
+local q = lib.queue.new()
+
+q:pushBack('a')
+q:pushBack('b')
+q:pushFront('z')
+
+print(q:popFront()) -- z
+print(q:popFront()) -- a
+print(q:size())     -- 1
+```

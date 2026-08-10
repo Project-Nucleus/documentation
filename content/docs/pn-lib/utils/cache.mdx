@@ -1,0 +1,67 @@
+---
+title: Cache
+description: TTL-keyed in-memory cache.
+---
+
+## `lib.cache.new`
+
+```lua
+lib.cache.new() -> Cache
+```
+
+Creates a cache instance.
+
+## Methods
+
+### `Cache:set`
+
+```lua
+Cache:set(key: string, value: any, ttl: integer)
+```
+
+Stores `value` under `key`. Expires at `GetGameTimer() + ttl` ms.
+
+### `Cache:get`
+
+```lua
+Cache:get(key: string) -> any?
+```
+
+Returns the value if not expired. Auto-deletes and returns `nil` if expired.
+
+### `Cache:delete`
+
+```lua
+Cache:delete(key: string)
+```
+
+Removes a key immediately.
+
+### `Cache:purge`
+
+```lua
+Cache:purge()
+```
+
+Sweeps all expired entries.
+
+### `Cache:size`
+
+```lua
+Cache:size() -> integer
+```
+
+Counts entries, including potentially stale ones.
+
+## Example
+
+```lua
+local c = lib.cache.new()
+
+c:set('player:1:name', 'John', 30000) -- expires in 30s
+
+local name = c:get('player:1:name')
+if name then
+    print(name)
+end
+```

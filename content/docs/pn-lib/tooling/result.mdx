@@ -1,0 +1,57 @@
+---
+title: Result
+description: Railway-oriented result type.
+---
+
+Represents either a successful value or an error without throwing exceptions.
+
+## `lib.result.ok`
+
+```lua
+lib.result.ok(value: any) -> Result
+```
+
+Returns `{ ok = true, value = value }`.
+
+## `lib.result.fail`
+
+```lua
+lib.result.fail(err: string) -> Result
+```
+
+Returns `{ ok = false, err = err }`.
+
+## `lib.result.try`
+
+```lua
+lib.result.try(fn: fun(...): any, ...) -> Result
+```
+
+Calls `fn(...)` with `pcall`. Wraps the outcome in `ok` or `fail`.
+
+## `lib.result.unwrap`
+
+```lua
+lib.result.unwrap(result: Result) -> any
+```
+
+Returns `result.value` on success. Errors with `result.err` on failure.
+
+## Example
+
+```lua
+local function divide(a, b)
+    if b == 0 then return lib.result.fail('division by zero') end
+    return lib.result.ok(a / b)
+end
+
+local r = divide(10, 2)
+if r.ok then
+    print(r.value) -- 5.0
+else
+    print('Error:', r.err)
+end
+
+-- or unwrap directly (errors on failure)
+local value = lib.result.unwrap(divide(10, 2))
+```

@@ -1,0 +1,68 @@
+---
+title: Table
+description: Table utilities.
+---
+
+## `lib.table.wipe`
+
+```lua
+lib.table.wipe(t: table) -> table
+```
+
+Clears all keys in-place. Returns the same table.
+
+## `lib.table.copy`
+
+```lua
+lib.table.copy(t: table) -> table
+```
+
+Shallow copy.
+
+## `lib.table.deepcopy`
+
+```lua
+lib.table.deepcopy(t: table) -> table
+```
+
+Recursive deep copy.
+
+## `lib.table.merge`
+
+```lua
+lib.table.merge(dst: table, src: table) -> table
+```
+
+Copies all keys from `src` into `dst` (shallow). Returns `dst`.
+
+## `lib.table.filter`
+
+```lua
+lib.table.filter(t: table, fn: fun(v, i): boolean) -> table
+```
+
+Returns a new array with elements where `fn` returns true.
+
+## `lib.table.map`
+
+```lua
+lib.table.map(t: table, fn: fun(v, i): any) -> table
+```
+
+Returns a new array with `fn` applied to each element.
+
+## `lib.table.contains`
+
+```lua
+lib.table.contains(t: table, val: any) -> boolean
+```
+
+Linear search of the array part.
+
+## `lib.table.count`
+
+```lua
+lib.table.count(t: table) -> integer
+```
+
+Counts all keys (not just integer keys). Equivalent to `#t` for hash tables.

@@ -1,0 +1,19 @@
+---
+title: Information
+description: Setup notes and recommendations for running Nucleus resources.
+icon: Info
+---
+
+## MariaDB
+
+<Callout type="warn" title="Avoid XAMPP">
+  XAMPP bundles an outdated version of MariaDB. If the XAMPP install corrupts, the database goes with it and recovery is painful. It also does not register as a Windows service, so you have to start it manually after every reboot.
+</Callout>
+
+Install MariaDB standalone instead. It runs as a Windows service, starts automatically on boot, and uses almost no resources at idle. It is fully independent so nothing else on your system can break it. MariaDB also runs natively on Linux, so the same setup works across both platforms.
+
+<Cards>
+  <Card title="Download MariaDB for Windows" href="https://mariadb.org/download/?t=mariadb&os=windows" />
+</Cards>
+
+During setup, leave **Install as service** checked. After that you never need to touch it again.

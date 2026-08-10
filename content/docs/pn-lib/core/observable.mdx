@@ -1,0 +1,38 @@
+---
+title: Observable
+description: Reactive table and convar watcher.
+---
+
+## `lib.observable.new`
+
+```lua
+lib.observable.new(target: table) -> proxy: table, dispatcher: Dispatcher
+```
+
+Returns a proxy over `target`. Any write to the proxy dispatches a `'change'` event with `(key, newValue, oldValue)`.
+
+```lua
+local state, events = lib.observable.new({ money = 0 })
+
+events:on('change', function(key, new, old)
+    print(key, old, '->', new)
+end)
+
+state.money = 500  -- prints: money 0 -> 500
+```
+
+## `lib.observable.convar`
+
+```lua
+lib.observable.convar(name: string) -> Dispatcher
+```
+
+Polls `GetConvar(name)` every 500 ms. Dispatches `'change'(name, current, old)` when the value changes.
+
+```lua
+local d = lib.observable.convar('my_feature_flag')
+
+d:on('change', function(name, current, old)
+    print(name, 'changed from', old, 'to', current)
+end)
+```
