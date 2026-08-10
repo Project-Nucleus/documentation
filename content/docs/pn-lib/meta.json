@@ -1,4 +1,4 @@
 {
   "title": "PN Lib",
-  "pages": ["index", "core", "tooling", "utils", "nui", "ui"]
+  "pages": ["core", "tooling", "utils", "nui", "ui"]
 }
