@@ -1,115 +1,155 @@
 ---
 title: UI
-description: snowy_frontend card system wrapper.
+description: pn_ui card system wrapper.
 ---
 
 <Callout type="info">Client-side only.</Callout>
 
-`lib.ui` wraps the `snowy_frontend` export-based card system. Focus is managed automatically: menus, dialogs, and custom cards grab NUI focus when shown and release it when the last such card is hidden.
+`lib.ui` wraps the `pn_ui` export-based card system. Focus is managed automatically: menus, dialogs, and custom cards grab NUI focus when shown and release it when the last such card is hidden.
 
 Cards are identified by string IDs. Pass your own `id` to control a card later, or omit it to get an auto-generated one.
 
 ## Cards
 
-### `lib.ui.showMenu`
+### lib.ui.showMenu
 
 ```lua
-lib.ui.showMenu(opts) -> string id
+lib.ui.showMenu(opts) -> string
 ```
 
-| Field | Type | Default |
-|---|---|---|
-| `title` | `string?` | |
-| `subtitle` | `string?` | |
-| `items` | `table[]` | required |
-| `position` | `string?` | `'center-right'` |
-| `closeable` | `boolean?` | |
-| `id` | `string?` | auto |
-
-Items are `{ id, label, description?, icon?, disabled?, arrow?, separator? }`.
-
-### `lib.ui.showNotification`
+**Parameters**
 
 ```lua
-lib.ui.showNotification(opts) -> string id
+opts: {
+    title?    : string,
+    subtitle? : string,
+    items     : { id: string, label: string, description?: string, icon?: string, disabled?: boolean, arrow?: boolean, separator?: boolean }[],
+    position? : string,   -- default: 'center-right'
+    closeable?: boolean,
+    id?       : string,
+}
 ```
 
-| Field | Type | Default |
-|---|---|---|
-| `title` | `string` | required |
-| `message` | `string?` | |
-| `level` | `string?` | `'info'` |
-| `duration` | `number?` | |
-| `position` | `string?` | `'top-right'` |
-| `id` | `string?` | auto |
+**Returns** `string` — card ID.
 
-`level` accepts `'info'`, `'success'`, `'warning'`, `'error'`.
+---
 
-### `lib.ui.showDialog`
+### lib.ui.showNotification
 
 ```lua
-lib.ui.showDialog(opts) -> string id
+lib.ui.showNotification(opts) -> string
 ```
 
-| Field | Type | Default |
-|---|---|---|
-| `title` | `string` | required |
-| `description` | `string?` | |
-| `fields` | `table[]?` | |
-| `actions` | `table[]` | required |
-| `position` | `string?` | `'center'` |
-| `id` | `string?` | auto |
-
-Actions are `{ id, label, variant? }`. Variant: `'primary'` or `'secondary'`.
-
-### `lib.ui.showProgress`
+**Parameters**
 
 ```lua
-lib.ui.showProgress(opts) -> string id
+opts: {
+    title    : string,
+    message? : string,
+    level?   : 'info' | 'success' | 'warning' | 'error',  -- default: 'info'
+    duration?: number,
+    position?: string,  -- default: 'top-right'
+    id?      : string,
+}
 ```
 
-| Field | Type | Default |
-|---|---|---|
-| `label` | `string?` | |
-| `value` | `number` | `0` |
-| `cancelable` | `boolean?` | |
-| `position` | `string?` | `'bottom-center'` |
-| `id` | `string?` | auto |
+**Returns** `string` — card ID.
 
-`value` is 0–100. Update it with `updateCard`.
+---
 
-### `lib.ui.showCustom`
+### lib.ui.showDialog
 
 ```lua
-lib.ui.showCustom(opts) -> string id
+lib.ui.showDialog(opts) -> string
 ```
 
-| Field | Type | Default |
-|---|---|---|
-| `title` | `string?` | |
-| `elements` | `table[]` | required |
-| `position` | `string?` | `'center'` |
-| `closeable` | `boolean?` | |
-| `zIndex` | `number?` | |
-| `id` | `string?` | auto |
-
-### `lib.ui.showScreen`
+**Parameters**
 
 ```lua
-lib.ui.showScreen(opts) -> string id
+opts: {
+    title      : string,
+    description?: string,
+    fields?    : table[],
+    actions    : { id: string, label: string, variant?: 'primary' | 'secondary' }[],
+    position?  : string,  -- default: 'center'
+    id?        : string,
+}
+```
+
+**Returns** `string` — card ID.
+
+---
+
+### lib.ui.showProgress
+
+```lua
+lib.ui.showProgress(opts) -> string
+```
+
+**Parameters**
+
+```lua
+opts: {
+    label?    : string,
+    value?    : number,   -- 0–100, default: 0
+    cancelable?: boolean,
+    position? : string,   -- default: 'bottom-center'
+    id?       : string,
+}
+```
+
+**Returns** `string` — card ID. Update `value` via `lib.ui.updateCard`.
+
+---
+
+### lib.ui.showCustom
+
+```lua
+lib.ui.showCustom(opts) -> string
+```
+
+**Parameters**
+
+```lua
+opts: {
+    title?    : string,
+    elements  : table[],
+    position? : string,  -- default: 'center'
+    closeable?: boolean,
+    zIndex?   : number,
+    id?       : string,
+}
+```
+
+**Returns** `string` — card ID.
+
+---
+
+### lib.ui.showScreen
+
+```lua
+lib.ui.showScreen(opts) -> string
 ```
 
 Full-screen overlay. Does not grab focus automatically.
 
-| Field | Type |
-|---|---|
-| `elements` | `table[]` |
-| `backdrop` | `boolean?` |
-| `id` | `string?` |
+**Parameters**
+
+```lua
+opts: {
+    elements : table[],
+    backdrop?: boolean,
+    id?      : string,
+}
+```
+
+**Returns** `string` — card ID.
+
+---
 
 ## Lifecycle
 
-### `lib.ui.hideCard`
+### lib.ui.hideCard
 
 ```lua
 lib.ui.hideCard(id: string)
@@ -117,7 +157,9 @@ lib.ui.hideCard(id: string)
 
 Hides a specific card and releases its focus slot.
 
-### `lib.ui.hideAll`
+---
+
+### lib.ui.hideAll
 
 ```lua
 lib.ui.hideAll()
@@ -125,7 +167,9 @@ lib.ui.hideAll()
 
 Hides every card shown through `lib.ui` and drops focus.
 
-### `lib.ui.updateCard`
+---
+
+### lib.ui.updateCard
 
 ```lua
 lib.ui.updateCard(id: string, patch: table)
@@ -133,7 +177,9 @@ lib.ui.updateCard(id: string, patch: table)
 
 Sends a partial update to a visible card. Use this to update `value` on a progress card.
 
-### `lib.ui.setFocus`
+---
+
+### lib.ui.setFocus
 
 ```lua
 lib.ui.setFocus(hasFocus: boolean, hasCursor: boolean)
@@ -141,9 +187,11 @@ lib.ui.setFocus(hasFocus: boolean, hasCursor: boolean)
 
 Manually sets NUI focus. Prefer letting `lib.ui` manage focus automatically.
 
+---
+
 ## Text UI
 
-### `lib.ui.showTextUI`
+### lib.ui.showTextUI
 
 ```lua
 lib.ui.showTextUI(text: string, opts?: { position?: string })
@@ -151,80 +199,121 @@ lib.ui.showTextUI(text: string, opts?: { position?: string })
 
 Shows a persistent hint. One per resource; calling again replaces the current one.
 
-### `lib.ui.hideTextUI`
+---
+
+### lib.ui.hideTextUI
 
 ```lua
 lib.ui.hideTextUI()
 ```
 
+---
+
 ## Blocking dialogs
 
 These yield the calling coroutine until the user responds.
 
-### `lib.ui.inputDialog`
+### lib.ui.inputDialog
 
 ```lua
 lib.ui.inputDialog(title: string, fields: table[]) -> any[]?
 ```
 
-Shows a dialog with input fields. Returns an array of values in field order, or `nil` if cancelled.
-
-Field definition:
-
-| Field | Type |
-|---|---|
-| `type` | `'input'` \| `'number'` \| `'select'` \| `'checkbox'` |
-| `label` | `string` |
-| `required` | `boolean?` |
-| `default` | `any?` |
-| `placeholder` | `string?` |
-| `min` | `number?` |
-| `max` | `number?` |
-| `options` | `table[]?` |
-
-### `lib.ui.alertDialog`
+**Parameters**
 
 ```lua
-lib.ui.alertDialog(opts) -> 'confirm'|nil
+title  : string
+fields : {
+    type       : 'input' | 'number' | 'select' | 'checkbox',
+    label      : string,
+    required?  : boolean,
+    default?   : any,
+    placeholder?: string,
+    min?       : number,
+    max?       : number,
+    options?   : table[],
+}[]
 ```
 
-| Field | Type |
-|---|---|
-| `header` | `string?` |
-| `title` | `string?` |
-| `content` | `string?` |
-| `cancel` | `boolean?` |
+**Returns** `any[]` — values in field order, or `nil` if cancelled.
 
-Returns `'confirm'` or `nil`.
+---
 
-### `lib.ui.progressBar`
+### lib.ui.alertDialog
+
+```lua
+lib.ui.alertDialog(opts) -> 'confirm' | nil
+```
+
+**Parameters**
+
+```lua
+opts: {
+    header? : string,
+    title?  : string,
+    content?: string,
+    cancel? : boolean,
+}
+```
+
+**Returns** `'confirm'` or `nil`.
+
+---
+
+### lib.ui.progressBar
 
 ```lua
 lib.ui.progressBar(opts) -> boolean
 ```
 
-Blocks until complete or cancelled. Returns `true` on completion, `false` on cancel.
+Blocks until complete or cancelled.
 
-| Field | Type | Default |
-|---|---|---|
-| `duration` | `number` | `5000` ms |
-| `label` | `string?` | |
-| `canCancel` | `boolean?` | |
-| `anim` | `{ dict: string, clip: string }?` | |
+**Parameters**
+
+```lua
+opts: {
+    duration  : number,  -- ms, default: 5000
+    label?    : string,
+    canCancel?: boolean,
+    anim?     : { dict: string, clip: string },
+}
+```
+
+**Returns** `true` on completion, `false` on cancel.
+
+---
 
 ## Context menus
 
-### `lib.ui.registerContext`
+### lib.ui.registerContext
 
 ```lua
-lib.ui.registerContext(ctx: { id: string, title: string, options: table[] })
+lib.ui.registerContext(ctx)
 ```
 
-Option fields: `title`, `description?`, `icon?`, `disabled?`, `arrow?`, `separator?`, `onSelect?: fun()`.
+**Parameters**
+
+```lua
+ctx: {
+    id      : string,
+    title   : string,
+    options : {
+        title      : string,
+        description?: string,
+        icon?      : string,
+        disabled?  : boolean,
+        arrow?     : boolean,
+        separator? : boolean,
+        onSelect?  : fun(),
+    }[],
+}
+```
 
 Icons accept FontAwesome names (`trash`, `pen`, `plus`, etc.) or `FiXxx` react-icons names directly.
 
-### `lib.ui.showContext`
+---
+
+### lib.ui.showContext
 
 ```lua
 lib.ui.showContext(id: string)
@@ -232,23 +321,59 @@ lib.ui.showContext(id: string)
 
 Opens the registered context menu. Closes any currently active one first.
 
-### `lib.ui.hideContext`
+---
+
+### lib.ui.hideContext
 
 ```lua
 lib.ui.hideContext()
 ```
 
+---
+
 ## Event subscriptions
 
-These return a remover function (call it to unsubscribe).
+These return a remover function — call it to unsubscribe.
 
-| Method | Event | Args |
-|---|---|---|
-| `lib.ui.onMenuSelect(fn)` | `snowy:frontend:menu:select` | `cardId, itemId` |
-| `lib.ui.onMenuClose(fn)` | `snowy:frontend:menu:close` | `cardId` |
-| `lib.ui.onDialogAction(fn)` | `snowy:frontend:dialog:action` | `cardId, actionId, values` |
-| `lib.ui.onProgressCancel(fn)` | `snowy:frontend:progress:cancel` | `cardId` |
-| `lib.ui.onCustomAction(fn)` | `snowy:frontend:custom:action` | `cardId, action` |
+### lib.ui.onMenuSelect
+
+```lua
+lib.ui.onMenuSelect(fn: fun(cardId: string, itemId: string)) -> fun()
+```
+
+---
+
+### lib.ui.onMenuClose
+
+```lua
+lib.ui.onMenuClose(fn: fun(cardId: string)) -> fun()
+```
+
+---
+
+### lib.ui.onDialogAction
+
+```lua
+lib.ui.onDialogAction(fn: fun(cardId: string, actionId: string, values: table)) -> fun()
+```
+
+---
+
+### lib.ui.onProgressCancel
+
+```lua
+lib.ui.onProgressCancel(fn: fun(cardId: string)) -> fun()
+```
+
+---
+
+### lib.ui.onCustomAction
+
+```lua
+lib.ui.onCustomAction(fn: fun(cardId: string, action: string)) -> fun()
+```
+
+---
 
 ## Example
 
