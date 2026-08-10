@@ -3,7 +3,7 @@ title: String
 description: String utilities.
 ---
 
-## `lib.string.trim`
+### lib.string.trim
 
 ```lua
 lib.string.trim(s: string) -> string
@@ -11,7 +11,11 @@ lib.string.trim(s: string) -> string
 
 Strips leading and trailing whitespace.
 
-## `lib.string.split`
+**Returns** `string`.
+
+---
+
+### lib.string.split
 
 ```lua
 lib.string.split(s: string, sep: string) -> string[]
@@ -19,7 +23,11 @@ lib.string.split(s: string, sep: string) -> string[]
 
 Splits on a separator character.
 
-## `lib.string.sanitize`
+**Returns** `string[]`.
+
+---
+
+### lib.string.sanitize
 
 ```lua
 lib.string.sanitize(s: string, pattern?: string) -> string
@@ -27,19 +35,31 @@ lib.string.sanitize(s: string, pattern?: string) -> string
 
 Removes characters matching `pattern`. Default pattern strips control characters and null bytes.
 
-## `lib.string.startsWith`
+**Returns** `string`.
+
+---
+
+### lib.string.startsWith
 
 ```lua
 lib.string.startsWith(s: string, prefix: string) -> boolean
 ```
 
-## `lib.string.endsWith`
+**Returns** `boolean`.
+
+---
+
+### lib.string.endsWith
 
 ```lua
 lib.string.endsWith(s: string, suffix: string) -> boolean
 ```
 
-## `lib.string.truncate`
+**Returns** `boolean`.
+
+---
+
+### lib.string.truncate
 
 ```lua
 lib.string.truncate(s: string, max: integer, suffix?: string) -> string
@@ -47,7 +67,11 @@ lib.string.truncate(s: string, max: integer, suffix?: string) -> string
 
 Truncates to `max` characters. Appends `suffix` (default `'...'`) when truncated.
 
-## `lib.string.padLeft`
+**Returns** `string`.
+
+---
+
+### lib.string.padLeft
 
 ```lua
 lib.string.padLeft(s: string, len: integer, char?: string) -> string
@@ -55,7 +79,11 @@ lib.string.padLeft(s: string, len: integer, char?: string) -> string
 
 Left-pads to `len` with `char` (default `' '`).
 
-## `lib.string.padRight`
+**Returns** `string`.
+
+---
+
+### lib.string.padRight
 
 ```lua
 lib.string.padRight(s: string, len: integer, char?: string) -> string
@@ -63,7 +91,11 @@ lib.string.padRight(s: string, len: integer, char?: string) -> string
 
 Right-pads to `len` with `char`.
 
-## `lib.string.capitalize`
+**Returns** `string`.
+
+---
+
+### lib.string.capitalize
 
 ```lua
 lib.string.capitalize(s: string) -> string
@@ -71,10 +103,16 @@ lib.string.capitalize(s: string) -> string
 
 Uppercases the first character.
 
-## `lib.string.count`
+**Returns** `string`.
+
+---
+
+### lib.string.count
 
 ```lua
 lib.string.count(s: string, pattern: string) -> integer
 ```
 
 Counts non-overlapping occurrences of `pattern`.
+
+**Returns** `integer`.

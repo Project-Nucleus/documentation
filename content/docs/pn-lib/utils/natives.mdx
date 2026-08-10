@@ -5,7 +5,7 @@ description: Async native wrappers.
 
 <Callout type="info">Client-side only.</Callout>
 
-## `lib.natives.requestModel`
+### lib.natives.requestModel
 
 ```lua
 lib.natives.requestModel(model: string|integer, time?: integer) -> boolean
@@ -13,7 +13,11 @@ lib.natives.requestModel(model: string|integer, time?: integer) -> boolean
 
 Requests a model by name or hash. Polls until the model loads or `time` ms elapses (default 5000). Returns whether the model loaded.
 
-## `lib.natives.requestAnimDict`
+**Returns** `boolean` — `true` if the model loaded.
+
+---
+
+### lib.natives.requestAnimDict
 
 ```lua
 lib.natives.requestAnimDict(dict: string, time?: integer) -> boolean
@@ -21,28 +25,33 @@ lib.natives.requestAnimDict(dict: string, time?: integer) -> boolean
 
 Same pattern for animation dictionaries.
 
-## `lib.natives.getNearbyVehicles`
+**Returns** `boolean` — `true` if the dict loaded.
+
+---
+
+### lib.natives.getNearbyVehicles
 
 ```lua
-lib.natives.getNearbyVehicles(
-    coords: vector3,
-    dist: number
-) -> { vehicle: integer, distance: number, coords: vector3 }[]
+lib.natives.getNearbyVehicles(coords: vector3, dist: number) -> { vehicle: integer, distance: number, coords: vector3 }[]
 ```
 
 Returns vehicles from the `CVehicle` pool within `dist` units, sorted by distance ascending.
 
-## `lib.natives.getNearbyPlayers`
+**Returns** `{ vehicle: integer, distance: number, coords: vector3 }[]`.
+
+---
+
+### lib.natives.getNearbyPlayers
 
 ```lua
-lib.natives.getNearbyPlayers(
-    coords: vector3,
-    dist: number,
-    includeSelf?: boolean
-) -> { player: integer, ped: integer, distance: number }[]
+lib.natives.getNearbyPlayers(coords: vector3, dist: number, includeSelf?: boolean) -> { player: integer, ped: integer, distance: number }[]
 ```
 
 Returns nearby players within `dist` units.
+
+**Returns** `{ player: integer, ped: integer, distance: number }[]`.
+
+---
 
 ## Example
 

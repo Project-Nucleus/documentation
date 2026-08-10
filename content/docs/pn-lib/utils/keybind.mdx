@@ -7,7 +7,7 @@ description: Client-side key mapping.
 
 Keybinds created via `lib.keybind` are automatically re-registered when `pn_lib` restarts.
 
-## `lib.keybind.add`
+### lib.keybind.add
 
 ```lua
 lib.keybind.add(opts) -> { disable: fun(self, val: boolean) }
@@ -15,22 +15,31 @@ lib.keybind.add(opts) -> { disable: fun(self, val: boolean) }
 
 Registers a key binding. Returns a handle.
 
-| Field | Type | Description |
-|---|---|---|
-| `name` | `string` | Unique identifier |
-| `description` | `string?` | Shown in key bindings settings |
-| `defaultKey` | `string?` | Default key (e.g. `'E'`, `'F6'`) |
-| `onPressed` | `fun()` | Called when the key is pressed |
+**Parameters**
+```lua
+opts: {
+    name?       : string,  -- unique identifier
+    description?: string,  -- shown in key bindings settings
+    defaultKey? : string,  -- default key (e.g. 'E', 'F6')
+    onPressed   : fun(),   -- called when the key is pressed
+}
+```
+
+**Returns** `{ disable: fun(self, val: boolean) }` — handle.
+
+---
 
 ## Handle methods
 
-### `handle:disable`
+### handle:disable
 
 ```lua
 handle:disable(val: boolean)
 ```
 
 Enables or disables the keybind at runtime.
+
+---
 
 ## Example
 

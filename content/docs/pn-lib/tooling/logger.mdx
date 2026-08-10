@@ -3,13 +3,17 @@ title: Logger
 description: Levelled structured logger.
 ---
 
-## `lib.logger.new`
+### lib.logger.new
 
 ```lua
 lib.logger.new(prefix?: string, level?: 'debug'|'info'|'warn'|'error') -> Logger
 ```
 
 Creates a logger instance. Output is prefixed with `[resourceName][prefix]`. Level defaults to `debug`.
+
+**Returns** `Logger`.
+
+---
 
 ## Methods
 
@@ -22,13 +26,17 @@ Logger:warn(msg: string, ...)
 Logger:error(msg: string, ...)
 ```
 
-## `lib.logger.addFormatter`
+---
+
+### lib.logger.addFormatter
 
 ```lua
-lib.logger.addFormatter(name: string, fn: fun(line: string, ctx: table): string)
+lib.logger.addFormatter(name: string, fn: fun(line: string, ctx: table) -> string)
 ```
 
 Registers a custom formatter. The active formatter is selected by the `snowy_log_style` convar. Built-in styles: `'inline'` (comma-separated, default) and `'block'` (newline-separated).
+
+---
 
 ## Example
 

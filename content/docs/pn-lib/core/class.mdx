@@ -5,7 +5,7 @@ description: Prototype-based class factory.
 
 Creates class tables with optional single inheritance.
 
-## `lib.class.new`
+### lib.class.new
 
 ```lua
 lib.class.new(parent?: table) -> table
@@ -13,9 +13,13 @@ lib.class.new(parent?: table) -> table
 
 Creates a new class. Pass a parent class to inherit all its keys; `cls.super` is set to the parent.
 
+**Returns** `table` — the new class.
+
 Every class gets two methods injected automatically:
 
-### `cls:create`
+---
+
+### cls:create
 
 ```lua
 cls:create(...) -> table
@@ -23,13 +27,21 @@ cls:create(...) -> table
 
 Instantiates the class. Calls `instance:init(...)` if the method exists.
 
-### `cls:is`
+**Returns** `table` — a new instance.
+
+---
+
+### cls:is
 
 ```lua
 cls:is(klass: table) -> boolean
 ```
 
 Walks the metatable chain to test whether the instance belongs to `klass`.
+
+**Returns** `boolean`.
+
+---
 
 ## Example
 

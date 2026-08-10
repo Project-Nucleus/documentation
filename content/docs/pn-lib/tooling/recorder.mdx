@@ -3,7 +3,7 @@ title: Recorder
 description: Event timeline recorder with circular buffer.
 ---
 
-## `lib.recorder.new`
+### lib.recorder.new
 
 ```lua
 lib.recorder.new(limit?: integer) -> Recorder
@@ -11,9 +11,13 @@ lib.recorder.new(limit?: integer) -> Recorder
 
 Creates a recorder with a circular buffer capped at `limit` (default 256).
 
+**Returns** `Recorder`.
+
+---
+
 ## Methods
 
-### `Recorder:record`
+### Recorder:record
 
 ```lua
 Recorder:record(event: string, payload: table)
@@ -21,7 +25,9 @@ Recorder:record(event: string, payload: table)
 
 Appends `{ t, event, data }` to the timeline. Evicts the oldest entry when the buffer is full.
 
-### `Recorder:attach`
+---
+
+### Recorder:attach
 
 ```lua
 Recorder:attach(dispatcher: Dispatcher)
@@ -29,7 +35,9 @@ Recorder:attach(dispatcher: Dispatcher)
 
 Monkey-patches `dispatcher.dispatch` to automatically record every dispatched event.
 
-### `Recorder:dump`
+---
+
+### Recorder:dump
 
 ```lua
 Recorder:dump() -> table[]
@@ -37,13 +45,19 @@ Recorder:dump() -> table[]
 
 Returns the full timeline array.
 
-### `Recorder:clear`
+**Returns** `table[]` — the timeline entries.
+
+---
+
+### Recorder:clear
 
 ```lua
 Recorder:clear()
 ```
 
 Resets the timeline.
+
+---
 
 ## Example
 

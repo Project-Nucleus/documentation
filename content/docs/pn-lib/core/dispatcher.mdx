@@ -5,7 +5,7 @@ description: Synchronous and async pub-sub event bus.
 
 Instance-based event bus. Multiple subscribers per event, each identified by an auto-incrementing integer ID. Subscribing returns a remove function.
 
-## `lib.dispatcher.new`
+### lib.dispatcher.new
 
 ```lua
 lib.dispatcher.new() -> Dispatcher
@@ -13,9 +13,13 @@ lib.dispatcher.new() -> Dispatcher
 
 Creates a new dispatcher instance.
 
+**Returns** `Dispatcher`.
+
+---
+
 ## Methods
 
-### `Dispatcher:on`
+### Dispatcher:on
 
 ```lua
 Dispatcher:on(event: string, handler: fun(...)) -> fun()
@@ -23,7 +27,11 @@ Dispatcher:on(event: string, handler: fun(...)) -> fun()
 
 Subscribes `handler` to `event`. Returns a zero-arg function that removes the subscription.
 
-### `Dispatcher:dispatch`
+**Returns** `fun()` — unsubscribe function.
+
+---
+
+### Dispatcher:dispatch
 
 ```lua
 Dispatcher:dispatch(event: string, ...)
@@ -31,7 +39,9 @@ Dispatcher:dispatch(event: string, ...)
 
 Calls all subscribers for `event` synchronously. Each handler runs inside `pcall`.
 
-### `Dispatcher:dispatchAsync`
+---
+
+### Dispatcher:dispatchAsync
 
 ```lua
 Dispatcher:dispatchAsync(event: string, ...)
@@ -39,13 +49,17 @@ Dispatcher:dispatchAsync(event: string, ...)
 
 Same as `dispatch` but spawns each handler in its own `CreateThread`.
 
-### `Dispatcher:clear`
+---
+
+### Dispatcher:clear
 
 ```lua
 Dispatcher:clear(event: string)
 ```
 
 Removes all subscriptions for `event`.
+
+---
 
 ## Example
 

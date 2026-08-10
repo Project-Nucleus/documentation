@@ -3,7 +3,7 @@ title: Math
 description: Vector and scalar math helpers.
 ---
 
-## `lib.math.lerp`
+### lib.math.lerp
 
 ```lua
 lib.math.lerp(a: number, b: number, t: number) -> number
@@ -11,7 +11,11 @@ lib.math.lerp(a: number, b: number, t: number) -> number
 
 Linear interpolation between `a` and `b` at `t` (0..1).
 
-## `lib.math.clamp`
+**Returns** `number`.
+
+---
+
+### lib.math.clamp
 
 ```lua
 lib.math.clamp(v: number, lo: number, hi: number) -> number
@@ -19,7 +23,11 @@ lib.math.clamp(v: number, lo: number, hi: number) -> number
 
 Clamps `v` to `[lo, hi]`.
 
-## `lib.math.round`
+**Returns** `number`.
+
+---
+
+### lib.math.round
 
 ```lua
 lib.math.round(v: number, places?: integer) -> number
@@ -27,7 +35,11 @@ lib.math.round(v: number, places?: integer) -> number
 
 Rounds to `places` decimal places (default 0).
 
-## `lib.math.dist3`
+**Returns** `number`.
+
+---
+
+### lib.math.dist3
 
 ```lua
 lib.math.dist3(a: {x,y,z}, b: {x,y,z}) -> number
@@ -35,7 +47,11 @@ lib.math.dist3(a: {x,y,z}, b: {x,y,z}) -> number
 
 Euclidean 3D distance.
 
-## `lib.math.dist3sq`
+**Returns** `number`.
+
+---
+
+### lib.math.dist3sq
 
 ```lua
 lib.math.dist3sq(a: {x,y,z}, b: {x,y,z}) -> number
@@ -43,7 +59,11 @@ lib.math.dist3sq(a: {x,y,z}, b: {x,y,z}) -> number
 
 Squared 3D distance. Cheaper than `dist3` when you only need comparisons.
 
-## `lib.math.dist2`
+**Returns** `number`.
+
+---
+
+### lib.math.dist2
 
 ```lua
 lib.math.dist2(a: {x,y}, b: {x,y}) -> number
@@ -51,7 +71,11 @@ lib.math.dist2(a: {x,y}, b: {x,y}) -> number
 
 Euclidean 2D distance.
 
-## `lib.math.normalize3`
+**Returns** `number`.
+
+---
+
+### lib.math.normalize3
 
 ```lua
 lib.math.normalize3(v: {x,y,z}) -> number x, number y, number z
@@ -59,10 +83,16 @@ lib.math.normalize3(v: {x,y,z}) -> number x, number y, number z
 
 Unit vector. Returns `0, 0, 0` for a zero-length vector.
 
-## `lib.math.dot3`
+**Returns** `number, number, number` — x, y, z components.
+
+---
+
+### lib.math.dot3
 
 ```lua
 lib.math.dot3(a: {x,y,z}, b: {x,y,z}) -> number
 ```
 
 3D dot product.
+
+**Returns** `number`.

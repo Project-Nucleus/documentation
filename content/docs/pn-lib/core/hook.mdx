@@ -5,7 +5,7 @@ description: Middleware pipeline wrapping a Dispatcher.
 
 Runs ordered middleware tiers (`before` → `normal` → `after`) before dispatching to subscribers.
 
-## `lib.hook.new`
+### lib.hook.new
 
 ```lua
 lib.hook.new(dispatcher?: Dispatcher) -> Hook
@@ -13,9 +13,13 @@ lib.hook.new(dispatcher?: Dispatcher) -> Hook
 
 Creates a hook. If no dispatcher is provided, a fresh one is created internally.
 
+**Returns** `Hook`.
+
+---
+
 ## Methods
 
-### `Hook:use`
+### Hook:use
 
 ```lua
 Hook:use(priority: 'before' | 'normal' | 'after', handler: fun(next: fun(...), ...))
@@ -23,7 +27,9 @@ Hook:use(priority: 'before' | 'normal' | 'after', handler: fun(next: fun(...), .
 
 Registers a middleware in the given tier. The handler receives `next` as its first argument and must call it to continue the chain.
 
-### `Hook:on`
+---
+
+### Hook:on
 
 ```lua
 Hook:on(event: string, handler: fun(...)) -> fun()
@@ -31,13 +37,19 @@ Hook:on(event: string, handler: fun(...)) -> fun()
 
 Delegates to the underlying dispatcher's `on`. Returns an unsubscribe function.
 
-### `Hook:dispatch`
+**Returns** `fun()` — unsubscribe function.
+
+---
+
+### Hook:dispatch
 
 ```lua
 Hook:dispatch(event: string, ...)
 ```
 
 Builds the full middleware chain and executes it. Dispatches to subscribers after all middleware has run.
+
+---
 
 ## Example
 

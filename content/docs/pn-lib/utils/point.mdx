@@ -9,29 +9,38 @@ Grid-accelerated proximity point. Fires enter/exit when the player crosses the d
 
 Points created via `lib.point` are automatically re-created when `pn_lib` restarts.
 
-## `lib.point.new`
+### lib.point.new
 
 ```lua
 lib.point.new(def) -> Point
 ```
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `coords` | `vector3` | required | World position |
-| `distance` | `number` | required | Trigger radius |
-| `onEnter` | `fun(self)` | | Fires when player enters |
-| `onExit` | `fun(self)` | | Fires when player exits |
-| `onNearby` | `fun(self, dist)` | | Fires while inside; receives current distance |
-| `nearbyInterval` | `integer` | `100` | `onNearby` interval in ms. `0` = every frame |
-| `debug` | `boolean` | `false` | Draw debug sphere |
+**Parameters**
+```lua
+def: {
+    coords         : vector3,          -- world position
+    distance       : number,           -- trigger radius
+    onEnter?       : fun(self),        -- fires when player enters
+    onExit?        : fun(self),        -- fires when player exits
+    onNearby?      : fun(self, dist),  -- fires while inside; receives current distance
+    nearbyInterval?: integer,          -- onNearby interval in ms (default 100, 0 = every frame)
+    debug?         : boolean,          -- draw debug sphere (default false)
+}
+```
 
-## `Point:remove`
+**Returns** `Point`.
+
+---
+
+### Point:remove
 
 ```lua
 Point:remove()
 ```
 
 Unregisters the point. Stops all callbacks.
+
+---
 
 ## Example
 

@@ -7,7 +7,7 @@ Loads translations from `locales/<lang>.json` inside the resource. Falls back to
 
 The active language is read from convars in this order: `snowy_locale`, `locale`, then `'en'`.
 
-## `lib.locale.new`
+### lib.locale.new
 
 ```lua
 lib.locale.new(resourceName: string, lang?: string) -> Locale
@@ -15,13 +15,21 @@ lib.locale.new(resourceName: string, lang?: string) -> Locale
 
 Creates a locale instance for `resourceName`. You rarely call this directly — `init.lua` injects a `locale()` global that wraps `lib.locale` for the current resource.
 
-## `Locale:get`
+**Returns** `Locale`.
+
+---
+
+### Locale:get
 
 ```lua
 Locale:get(key: string, ...) -> string
 ```
 
 Looks up `key`. Applies `string.format` with `...` if args are provided. Returns `key` unchanged if not found.
+
+**Returns** `string`.
+
+---
 
 ## Global shorthand
 

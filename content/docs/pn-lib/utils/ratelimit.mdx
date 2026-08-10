@@ -3,7 +3,7 @@ title: Rate Limit
 description: Token-bucket rate limiter.
 ---
 
-## `lib.ratelimit.new`
+### lib.ratelimit.new
 
 ```lua
 lib.ratelimit.new(rate: number, window: integer, cap?: number) -> RateLimiter
@@ -11,9 +11,13 @@ lib.ratelimit.new(rate: number, window: integer, cap?: number) -> RateLimiter
 
 Creates a rate limiter. `rate` tokens refill per `window` ms. `cap` is the bucket maximum (defaults to `rate`).
 
+**Returns** `RateLimiter`.
+
+---
+
 ## Methods
 
-### `RateLimiter:consume`
+### RateLimiter:consume
 
 ```lua
 RateLimiter:consume(key: string, cost?: number) -> boolean
@@ -21,7 +25,11 @@ RateLimiter:consume(key: string, cost?: number) -> boolean
 
 Attempts to consume `cost` tokens (default 1) for `key`. Returns `true` if allowed, `false` if insufficient tokens.
 
-### `RateLimiter:remove`
+**Returns** `boolean` — `true` if the request was allowed.
+
+---
+
+### RateLimiter:remove
 
 ```lua
 RateLimiter:remove(key: string)
@@ -29,13 +37,17 @@ RateLimiter:remove(key: string)
 
 Deletes a bucket.
 
-### `RateLimiter:reset`
+---
+
+### RateLimiter:reset
 
 ```lua
 RateLimiter:reset()
 ```
 
 Clears all buckets.
+
+---
 
 ## Example
 

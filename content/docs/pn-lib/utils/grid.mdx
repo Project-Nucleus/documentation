@@ -8,7 +8,7 @@ Divides the map into 1000-unit cells for efficient proximity lookups.
 <Tabs items={['Shared', 'Client', 'Server']}>
 <Tab value="Shared">
 
-### `lib.grid.cellAt`
+### lib.grid.cellAt
 
 ```lua
 lib.grid.cellAt(x: number, y: number) -> cx: integer, cy: integer
@@ -16,7 +16,11 @@ lib.grid.cellAt(x: number, y: number) -> cx: integer, cy: integer
 
 Converts world coordinates to cell indices.
 
-### `lib.grid.cellKey`
+**Returns** `integer, integer` — cell indices cx, cy.
+
+---
+
+### lib.grid.cellKey
 
 ```lua
 lib.grid.cellKey(cx: integer, cy: integer) -> string
@@ -24,7 +28,11 @@ lib.grid.cellKey(cx: integer, cy: integer) -> string
 
 Returns `"cx,cy"`.
 
-### `lib.grid.cellAtCoord`
+**Returns** `string`.
+
+---
+
+### lib.grid.cellAtCoord
 
 ```lua
 lib.grid.cellAtCoord(x: number, y: number) -> string
@@ -32,7 +40,11 @@ lib.grid.cellAtCoord(x: number, y: number) -> string
 
 Combines `cellAt` and `cellKey`.
 
-### `lib.grid.cellBounds`
+**Returns** `string`.
+
+---
+
+### lib.grid.cellBounds
 
 ```lua
 lib.grid.cellBounds(cx: integer, cy: integer) -> { minX, minY, maxX, maxY }
@@ -40,10 +52,12 @@ lib.grid.cellBounds(cx: integer, cy: integer) -> { minX, minY, maxX, maxY }
 
 Returns the world-space bounds of a cell.
 
+**Returns** `{ minX, minY, maxX, maxY }`.
+
 </Tab>
 <Tab value="Client">
 
-### `lib.grid.getCurrentCell`
+### lib.grid.getCurrentCell
 
 ```lua
 lib.grid.getCurrentCell() -> string?
@@ -51,7 +65,11 @@ lib.grid.getCurrentCell() -> string?
 
 Returns the local player's current cell key, updated every 500 ms.
 
-### `lib.grid.onCellChange`
+**Returns** `string?`.
+
+---
+
+### lib.grid.onCellChange
 
 ```lua
 lib.grid.onCellChange(fn: fun(newCell: string, oldCell: string?, cx: integer, cy: integer))
@@ -70,7 +88,7 @@ end)
 </Tab>
 <Tab value="Server">
 
-### `lib.grid.getPlayersInCell`
+### lib.grid.getPlayersInCell
 
 ```lua
 lib.grid.getPlayersInCell(cellKey: string) -> integer[]
@@ -78,13 +96,19 @@ lib.grid.getPlayersInCell(cellKey: string) -> integer[]
 
 Returns server IDs of players whose last reported cell matches `cellKey`.
 
-### `lib.grid.getPlayerCell`
+**Returns** `integer[]`.
+
+---
+
+### lib.grid.getPlayerCell
 
 ```lua
 lib.grid.getPlayerCell(src: integer) -> string?
 ```
 
 Returns the last reported cell key for player `src`.
+
+**Returns** `string?`.
 
 ## Example
 

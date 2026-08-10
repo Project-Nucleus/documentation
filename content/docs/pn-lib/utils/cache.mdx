@@ -3,7 +3,7 @@ title: Cache
 description: TTL-keyed in-memory cache.
 ---
 
-## `lib.cache.new`
+### lib.cache.new
 
 ```lua
 lib.cache.new() -> Cache
@@ -11,9 +11,13 @@ lib.cache.new() -> Cache
 
 Creates a cache instance.
 
+**Returns** `Cache`.
+
+---
+
 ## Methods
 
-### `Cache:set`
+### Cache:set
 
 ```lua
 Cache:set(key: string, value: any, ttl: integer)
@@ -21,7 +25,9 @@ Cache:set(key: string, value: any, ttl: integer)
 
 Stores `value` under `key`. Expires at `GetGameTimer() + ttl` ms.
 
-### `Cache:get`
+---
+
+### Cache:get
 
 ```lua
 Cache:get(key: string) -> any?
@@ -29,7 +35,11 @@ Cache:get(key: string) -> any?
 
 Returns the value if not expired. Auto-deletes and returns `nil` if expired.
 
-### `Cache:delete`
+**Returns** `any?` — the cached value or `nil`.
+
+---
+
+### Cache:delete
 
 ```lua
 Cache:delete(key: string)
@@ -37,7 +47,9 @@ Cache:delete(key: string)
 
 Removes a key immediately.
 
-### `Cache:purge`
+---
+
+### Cache:purge
 
 ```lua
 Cache:purge()
@@ -45,13 +57,19 @@ Cache:purge()
 
 Sweeps all expired entries.
 
-### `Cache:size`
+---
+
+### Cache:size
 
 ```lua
 Cache:size() -> integer
 ```
 
 Counts entries, including potentially stale ones.
+
+**Returns** `integer`.
+
+---
 
 ## Example
 

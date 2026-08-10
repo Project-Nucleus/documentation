@@ -9,10 +9,10 @@ Lets the server call functions on a client and vice versa. Uses net events inter
   Register handlers on both sides. A server-side `register` handles calls from clients; a client-side `register` handles calls from the server.
 </Callout>
 
-## `lib.rpc.register`
+### lib.rpc.register
 
 ```lua
-lib.rpc.register(name: string, handler: fun(...): any)
+lib.rpc.register(name: string, handler: fun(...) -> any)
 ```
 
 Registers a handler for `name`. On the server the first argument to `handler` is the calling player's `source`.
@@ -29,7 +29,9 @@ lib.rpc.register('ping', function()
 end)
 ```
 
-## `lib.rpc.call`
+---
+
+### lib.rpc.call
 
 ```lua
 -- server → client
@@ -41,6 +43,8 @@ lib.rpc.call(name: string, ...) -> any
 
 Calls a handler on the remote side and waits for the result. Errors if the handler errors.
 
+**Returns** `any` — the handler's return value.
+
 ```lua
 -- client calling server
 local balance = lib.rpc.call('getBalance')
@@ -50,6 +54,8 @@ print('My balance:', balance)
 local response = lib.rpc.call(source, 'ping')
 print(response) -- pong
 ```
+
+---
 
 ## Restart resilience
 

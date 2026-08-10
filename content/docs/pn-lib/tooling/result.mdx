@@ -5,7 +5,7 @@ description: Railway-oriented result type.
 
 Represents either a successful value or an error without throwing exceptions.
 
-## `lib.result.ok`
+### lib.result.ok
 
 ```lua
 lib.result.ok(value: any) -> Result
@@ -13,7 +13,11 @@ lib.result.ok(value: any) -> Result
 
 Returns `{ ok = true, value = value }`.
 
-## `lib.result.fail`
+**Returns** `Result`.
+
+---
+
+### lib.result.fail
 
 ```lua
 lib.result.fail(err: string) -> Result
@@ -21,21 +25,33 @@ lib.result.fail(err: string) -> Result
 
 Returns `{ ok = false, err = err }`.
 
-## `lib.result.try`
+**Returns** `Result`.
+
+---
+
+### lib.result.try
 
 ```lua
-lib.result.try(fn: fun(...): any, ...) -> Result
+lib.result.try(fn: fun(...) -> any, ...) -> Result
 ```
 
 Calls `fn(...)` with `pcall`. Wraps the outcome in `ok` or `fail`.
 
-## `lib.result.unwrap`
+**Returns** `Result`.
+
+---
+
+### lib.result.unwrap
 
 ```lua
 lib.result.unwrap(result: Result) -> any
 ```
 
 Returns `result.value` on success. Errors with `result.err` on failure.
+
+**Returns** `any` — the result value.
+
+---
 
 ## Example
 

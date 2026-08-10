@@ -3,7 +3,7 @@ title: Queue
 description: Double-ended queue (deque).
 ---
 
-## `lib.queue.new`
+### lib.queue.new
 
 ```lua
 lib.queue.new() -> Queue
@@ -11,9 +11,13 @@ lib.queue.new() -> Queue
 
 Creates an empty queue.
 
+**Returns** `Queue`.
+
+---
+
 ## Methods
 
-### `Queue:pushBack`
+### Queue:pushBack
 
 ```lua
 Queue:pushBack(value: any)
@@ -21,7 +25,9 @@ Queue:pushBack(value: any)
 
 Enqueues at the tail.
 
-### `Queue:pushFront`
+---
+
+### Queue:pushFront
 
 ```lua
 Queue:pushFront(value: any)
@@ -29,7 +35,9 @@ Queue:pushFront(value: any)
 
 Enqueues at the head.
 
-### `Queue:popFront`
+---
+
+### Queue:popFront
 
 ```lua
 Queue:popFront() -> any
@@ -37,7 +45,11 @@ Queue:popFront() -> any
 
 Dequeues from the head. Returns `nil` if empty.
 
-### `Queue:popBack`
+**Returns** `any` — the dequeued value or `nil`.
+
+---
+
+### Queue:popBack
 
 ```lua
 Queue:popBack() -> any
@@ -45,7 +57,11 @@ Queue:popBack() -> any
 
 Dequeues from the tail. Returns `nil` if empty.
 
-### `Queue:peekFront`
+**Returns** `any` — the dequeued value or `nil`.
+
+---
+
+### Queue:peekFront
 
 ```lua
 Queue:peekFront() -> any
@@ -53,17 +69,29 @@ Queue:peekFront() -> any
 
 Reads the head without removing it.
 
-### `Queue:size`
+**Returns** `any`.
+
+---
+
+### Queue:size
 
 ```lua
 Queue:size() -> integer
 ```
 
-### `Queue:isEmpty`
+**Returns** `integer`.
+
+---
+
+### Queue:isEmpty
 
 ```lua
 Queue:isEmpty() -> boolean
 ```
+
+**Returns** `boolean`.
+
+---
 
 ## Example
 

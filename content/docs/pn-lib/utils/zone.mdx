@@ -9,38 +9,50 @@ Zones fire `onEnter(self)` and `onExit(self)` as the local player crosses the bo
 
 Zones created via `lib.zone` are automatically re-created when `pn_lib` restarts.
 
-## `lib.zone.box`
+### lib.zone.box
 
 ```lua
 lib.zone.box(def) -> Zone
 ```
 
-**`def`** fields:
+**Parameters**
+```lua
+def: {
+    coords  : vector3,     -- center of the box
+    size    : vector3,     -- half-extents
+    heading?: number,      -- rotation in degrees (default 0)
+    onEnter?: fun(self),   -- fires on entry
+    onExit? : fun(self),   -- fires on exit
+    debug?  : boolean,     -- draw wireframe (default false)
+}
+```
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `coords` | `vector3` | required | Center of the box |
-| `size` | `vector3` | required | Half-extents |
-| `heading` | `number` | `0` | Rotation in degrees |
-| `onEnter` | `fun(self)` | | Fires on entry |
-| `onExit` | `fun(self)` | | Fires on exit |
-| `debug` | `boolean` | `false` | Draw wireframe |
+**Returns** `Zone`.
 
-## `lib.zone.sphere`
+---
+
+### lib.zone.sphere
 
 ```lua
 lib.zone.sphere(def) -> Zone
 ```
 
-| Field | Type | Description |
-|---|---|---|
-| `coords` | `vector3` | Center |
-| `radius` | `number` | Radius |
-| `onEnter` | `fun(self)` | |
-| `onExit` | `fun(self)` | |
-| `debug` | `boolean` | |
+**Parameters**
+```lua
+def: {
+    coords  : vector3,
+    radius  : number,
+    onEnter?: fun(self),
+    onExit? : fun(self),
+    debug?  : boolean,
+}
+```
 
-## `lib.zone.poly`
+**Returns** `Zone`.
+
+---
+
+### lib.zone.poly
 
 ```lua
 lib.zone.poly(def) -> Zone
@@ -48,16 +60,23 @@ lib.zone.poly(def) -> Zone
 
 2D polygon with Z extents. Uses ray-casting for the inside test.
 
-| Field | Type | Description |
-|---|---|---|
-| `points` | `vector2[]` | Polygon vertices |
-| `minZ` | `number` | Minimum Z |
-| `maxZ` | `number` | Maximum Z |
-| `onEnter` | `fun(self)` | |
-| `onExit` | `fun(self)` | |
-| `debug` | `boolean` | |
+**Parameters**
+```lua
+def: {
+    points  : vector2[],   -- polygon vertices
+    minZ    : number,
+    maxZ    : number,
+    onEnter?: fun(self),
+    onExit? : fun(self),
+    debug?  : boolean,
+}
+```
 
-## `Zone:isInside`
+**Returns** `Zone`.
+
+---
+
+### Zone:isInside
 
 ```lua
 Zone:isInside(x: number, y: number, z: number) -> boolean
@@ -65,13 +84,19 @@ Zone:isInside(x: number, y: number, z: number) -> boolean
 
 Tests whether the coordinate is inside the zone.
 
-## `Zone:remove`
+**Returns** `boolean`.
+
+---
+
+### Zone:remove
 
 ```lua
 Zone:remove()
 ```
 
 Unregisters the zone. Stops all callbacks.
+
+---
 
 ## Example
 

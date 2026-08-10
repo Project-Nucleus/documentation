@@ -3,7 +3,7 @@ title: Lifecycle
 description: Thread-based timing primitives.
 ---
 
-## `lib.lifecycle.onReady`
+### lib.lifecycle.onReady
 
 ```lua
 lib.lifecycle.onReady(fn: fun())
@@ -11,7 +11,9 @@ lib.lifecycle.onReady(fn: fun())
 
 Spawns a thread that waits one tick then calls `fn`. Use this to defer initialization until the first frame.
 
-## `lib.lifecycle.tick`
+---
+
+### lib.lifecycle.tick
 
 ```lua
 lib.lifecycle.tick(ms: integer, fn: fun(dt: integer)) -> fun()
@@ -19,13 +21,21 @@ lib.lifecycle.tick(ms: integer, fn: fun(dt: integer)) -> fun()
 
 Spawns a loop that waits `ms` and calls `fn(dt)` where `dt` is the actual elapsed ms. Returns a cancel function.
 
-## `lib.lifecycle.frame`
+**Returns** `fun()` — cancel function.
+
+---
+
+### lib.lifecycle.frame
 
 ```lua
 lib.lifecycle.frame(fn: fun()) -> fun()
 ```
 
 Spawns a zero-wait loop calling `fn` every frame. Returns a cancel function.
+
+**Returns** `fun()` — cancel function.
+
+---
 
 ## Example
 

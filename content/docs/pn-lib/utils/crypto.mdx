@@ -3,7 +3,7 @@ title: Crypto
 description: Hashing and token generation.
 ---
 
-## `lib.crypto.jenkins`
+### lib.crypto.jenkins
 
 ```lua
 lib.crypto.jenkins(s: string) -> integer
@@ -11,7 +11,11 @@ lib.crypto.jenkins(s: string) -> integer
 
 Jenkins one-at-a-time hash. Result masked to 32 bits.
 
-## `lib.crypto.murmur3`
+**Returns** `integer`.
+
+---
+
+### lib.crypto.murmur3
 
 ```lua
 lib.crypto.murmur3(s: string, seed?: integer) -> integer
@@ -19,13 +23,21 @@ lib.crypto.murmur3(s: string, seed?: integer) -> integer
 
 MurmurHash3 (32-bit). Accepts an optional seed.
 
-## `lib.crypto.token`
+**Returns** `integer`.
+
+---
+
+### lib.crypto.token
 
 ```lua
 lib.crypto.token(bytes?: integer) -> string
 ```
 
 Generates a random hex string. `bytes` defaults to 16, producing a 32-character hex token.
+
+**Returns** `string` — hex token.
+
+---
 
 ## Example
 

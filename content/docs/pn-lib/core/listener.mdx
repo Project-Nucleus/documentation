@@ -7,17 +7,19 @@ Wraps a remove function with an `active` flag so removal is idempotent.
 
 ## Fields
 
-| Field | Type | Description |
-|---|---|---|
-| `active` | `boolean` | `true` until `remove()` is called |
+```lua
+active : boolean   -- true until remove() is called
+```
 
-## `Listener:remove`
+### Listener:remove
 
 ```lua
 Listener:remove()
 ```
 
 Calls the stored remover once, then clears it and sets `active = false`. Safe to call multiple times.
+
+---
 
 ## Usage
 

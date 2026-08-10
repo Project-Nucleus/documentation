@@ -5,15 +5,19 @@ description: Global pre/post hook registry for net events.
 
 Module-level pre/post hooks for FiveM net events. Pre-hooks can block event delivery. The `AddEventHandler` override in `init.lua` calls these automatically.
 
-## `lib.interceptor.before`
+### lib.interceptor.before
 
 ```lua
-lib.interceptor.before(event: string, fn: fun(...): boolean?) -> { remove: fun() }
+lib.interceptor.before(event: string, fn: fun(...) -> boolean?) -> { remove: fun() }
 ```
 
 Registers a pre-hook for `event`. If `fn` returns `false` the event is blocked and no handlers run. Returns a handle with a `remove()` method.
 
-## `lib.interceptor.after`
+**Returns** `{ remove: fun() }` — handle to remove the hook.
+
+---
+
+### lib.interceptor.after
 
 ```lua
 lib.interceptor.after(event: string, fn: fun(...)) -> { remove: fun() }
@@ -21,7 +25,11 @@ lib.interceptor.after(event: string, fn: fun(...)) -> { remove: fun() }
 
 Registers a post-hook that fires after all handlers for `event` have run.
 
-## `lib.interceptor.runPre`
+**Returns** `{ remove: fun() }` — handle to remove the hook.
+
+---
+
+### lib.interceptor.runPre
 
 ```lua
 lib.interceptor.runPre(event: string, ...) -> boolean
@@ -29,13 +37,19 @@ lib.interceptor.runPre(event: string, ...) -> boolean
 
 Runs all pre-hooks for `event`. Returns `false` if any hook returned `false`, otherwise `true`.
 
-## `lib.interceptor.runPost`
+**Returns** `boolean` — `false` if the event was blocked.
+
+---
+
+### lib.interceptor.runPost
 
 ```lua
 lib.interceptor.runPost(event: string, ...)
 ```
 
 Runs all post-hooks for `event`.
+
+---
 
 ## Example
 

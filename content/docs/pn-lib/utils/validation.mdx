@@ -3,7 +3,7 @@ title: Validation
 description: Schema-based table validation.
 ---
 
-## `lib.validation.check`
+### lib.validation.check
 
 ```lua
 lib.validation.check(data: table, schema: table<string, string|fun>) -> boolean, string?
@@ -11,7 +11,11 @@ lib.validation.check(data: table, schema: table<string, string|fun>) -> boolean,
 
 Validates `data` against `schema`. Each schema entry is either a type-name string or a `fun(v): boolean, string?` validator. Returns `false, errorMessage` on the first failure.
 
-## `lib.validation.assert`
+**Returns** `boolean, string?` — `true` on success, or `false` and an error message.
+
+---
+
+### lib.validation.assert
 
 ```lua
 lib.validation.assert(data: table, schema: table)
@@ -19,9 +23,11 @@ lib.validation.assert(data: table, schema: table)
 
 Same as `check` but errors on failure instead of returning.
 
+---
+
 ## Built-in rule factories
 
-### `lib.validation.rules.range`
+### lib.validation.rules.range
 
 ```lua
 lib.validation.rules.range(min: integer, max: integer) -> fun
@@ -29,7 +35,11 @@ lib.validation.rules.range(min: integer, max: integer) -> fun
 
 Returns a validator that checks the value is within `[min, max]`.
 
-### `lib.validation.rules.maxlen`
+**Returns** `fun` — validator function.
+
+---
+
+### lib.validation.rules.maxlen
 
 ```lua
 lib.validation.rules.maxlen(max: integer) -> fun
@@ -37,13 +47,21 @@ lib.validation.rules.maxlen(max: integer) -> fun
 
 Returns a validator that checks a string's length is `<= max`.
 
-### `lib.validation.rules.enum`
+**Returns** `fun` — validator function.
+
+---
+
+### lib.validation.rules.enum
 
 ```lua
 lib.validation.rules.enum(t: table) -> fun
 ```
 
 Returns a validator that checks the value is one of the values in `t`.
+
+**Returns** `fun` — validator function.
+
+---
 
 ## Example
 

@@ -5,7 +5,7 @@ description: Lifecycle container for listeners and cleanup callbacks.
 
 Groups listeners and cleanup functions under one object. Calling `destroy()` removes everything at once.
 
-## `lib.scope.create`
+### lib.scope.create
 
 ```lua
 lib.scope.create() -> Scope
@@ -13,9 +13,13 @@ lib.scope.create() -> Scope
 
 Creates a new scope. Scopes created via `lib.scope.create` are automatically destroyed when the owning resource stops.
 
+**Returns** `Scope`.
+
+---
+
 ## Methods
 
-### `Scope:track`
+### Scope:track
 
 ```lua
 Scope:track(listener: Listener) -> Listener
@@ -23,7 +27,11 @@ Scope:track(listener: Listener) -> Listener
 
 Adds a Listener to be removed on `destroy()`. Returns the listener.
 
-### `Scope:onDestroy`
+**Returns** `Listener`.
+
+---
+
+### Scope:onDestroy
 
 ```lua
 Scope:onDestroy(fn: fun())
@@ -31,13 +39,17 @@ Scope:onDestroy(fn: fun())
 
 Queues an arbitrary cleanup function to run when the scope is destroyed.
 
-### `Scope:destroy`
+---
+
+### Scope:destroy
 
 ```lua
 Scope:destroy()
 ```
 
 Calls `remove()` on all tracked listeners and runs all cleanup functions.
+
+---
 
 ## Example
 

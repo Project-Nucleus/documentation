@@ -5,7 +5,7 @@ description: Vehicle property serialization.
 
 <Callout type="info">Client-side only.</Callout>
 
-## `lib.vehicle.getProperties`
+### lib.vehicle.getProperties
 
 ```lua
 lib.vehicle.getProperties(vehicle: number) -> table
@@ -13,17 +13,23 @@ lib.vehicle.getProperties(vehicle: number) -> table
 
 Reads all visual and mechanical properties into a flat table. Useful for persisting vehicle state.
 
+**Returns** `table`.
+
 **Returned fields include:**
 
 `model`, `plate`, `plateIndex`, `bodyHealth`, `engineHealth`, `tankHealth`, `fuelLevel`, `dirtLevel`, `color1`, `color2`, `pearlescentColor`, `wheelColor`, `dashboardColor`, `interiorColor`, `wheels`, `windowTint`, `livery`, `roofLivery`, `tyreSmokeColor`, `neonEnabled`, `neonColor`, `xenonColor`, `customColorPrimary?`, `customColorSecondary?`, `extras` (map 0–12 → bool), `mods` (map 0–48 → mod index), `modKit`.
 
-## `lib.vehicle.setProperties`
+---
+
+### lib.vehicle.setProperties
 
 ```lua
 lib.vehicle.setProperties(vehicle: number, props: table)
 ```
 
 Applies a properties table back to the vehicle. Only sets fields that are present and non-nil.
+
+---
 
 ## Example
 

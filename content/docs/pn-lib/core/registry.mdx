@@ -5,7 +5,7 @@ description: Shared key/value store with automatic resource-scoped cleanup.
 
 Module-level store. Keys are tagged with the resource that set them and removed automatically when that resource stops.
 
-## `lib.registry.set`
+### lib.registry.set
 
 ```lua
 lib.registry.set(key: string, value: any)
@@ -13,7 +13,9 @@ lib.registry.set(key: string, value: any)
 
 Stores `value` under `key`, tagged to the current resource.
 
-## `lib.registry.get`
+---
+
+### lib.registry.get
 
 ```lua
 lib.registry.get(key: string) -> any
@@ -21,7 +23,11 @@ lib.registry.get(key: string) -> any
 
 Retrieves a stored value.
 
-## `lib.registry.delete`
+**Returns** `any` — the stored value, or `nil`.
+
+---
+
+### lib.registry.delete
 
 ```lua
 lib.registry.delete(key: string)
@@ -29,13 +35,17 @@ lib.registry.delete(key: string)
 
 Removes a key immediately.
 
-## `lib.registry.purge`
+---
+
+### lib.registry.purge
 
 ```lua
 lib.registry.purge(resource: string)
 ```
 
 Removes all keys tagged to `resource`. Called automatically on `onResourceStop`.
+
+---
 
 ## Example
 

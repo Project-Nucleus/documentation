@@ -3,7 +3,7 @@ title: Profiler
 description: Sampling profiler for measuring code performance.
 ---
 
-## `lib.profiler.session`
+### lib.profiler.session
 
 ```lua
 lib.profiler.session(name: string) -> ProfilerSession
@@ -11,9 +11,13 @@ lib.profiler.session(name: string) -> ProfilerSession
 
 Creates a named profiling session.
 
+**Returns** `ProfilerSession`.
+
+---
+
 ## Methods
 
-### `Session:span`
+### Session:span
 
 ```lua
 Session:span(label: string) -> fun()
@@ -21,13 +25,19 @@ Session:span(label: string) -> fun()
 
 Starts timing a span. Returns a stop function. Calling the stop function records elapsed milliseconds.
 
-### `Session:report`
+**Returns** `fun()` — stop function.
+
+---
+
+### Session:report
 
 ```lua
 Session:report()
 ```
 
 Prints all spans: call count, average ms, and total ms.
+
+---
 
 ## Example
 

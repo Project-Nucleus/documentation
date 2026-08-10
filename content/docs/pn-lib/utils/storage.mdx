@@ -7,7 +7,7 @@ description: Persistent KVP storage using FiveM resource KVP.
 
 Wraps FiveM's resource KVP API with automatic JSON encoding/decoding.
 
-## `lib.storage.set`
+### lib.storage.set
 
 ```lua
 lib.storage.set(key: string, value: any)
@@ -15,7 +15,9 @@ lib.storage.set(key: string, value: any)
 
 JSON-encodes `value` and writes it via `SetResourceKvp`.
 
-## `lib.storage.get`
+---
+
+### lib.storage.get
 
 ```lua
 lib.storage.get(key: string) -> any
@@ -23,13 +25,19 @@ lib.storage.get(key: string) -> any
 
 Reads and JSON-decodes the stored value. Returns `nil` if the key is absent.
 
-## `lib.storage.delete`
+**Returns** `any` — the decoded value or `nil`.
+
+---
+
+### lib.storage.delete
 
 ```lua
 lib.storage.delete(key: string)
 ```
 
 Calls `DeleteResourceKvp`.
+
+---
 
 ## Example
 
