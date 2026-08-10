@@ -1,47 +1,41 @@
-# .
+# Project Nucleus — Documentation
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+Official documentation site for all Nucleus FiveM resources.
 
-It is a Next.js app with [Static Export](https://nextjs.org/docs/app/guides/static-exports) configured.
+Built with [Fumadocs](https://fumadocs.vercel.app) and Next.js, exported as a static site.
 
-Run development server:
+## Stack
+
+- **Framework**: Next.js (static export)
+- **Docs engine**: Fumadocs
+- **Styling**: Tailwind CSS
+
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-pnpm dev
-# or
-yarn dev
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Explore
+## Building
 
-In the project, you can see:
+```bash
+npm run build
+```
 
-- `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `lib/layout.shared.tsx`: Shared options for layouts, optional but preferred to keep.
+Output goes to `out/`.
 
-| Route                     | Description                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `app/(home)`              | The route group for your landing page and other pages. |
-| `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
+## Content
 
-### Fumadocs MDX
+Docs live in `content/docs/`. Each `.mdx` file maps to a page. Folder structure defines the sidebar.
 
-Collections are defined with the [Macro API](https://fumadocs.dev/docs/mdx/macro) in `lib/source.ts`.
+Frontmatter fields:
 
-Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
-
-## Learn More
-
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.dev) - learn about Fumadocs
+| Field | Description |
+|---|---|
+| `title` | Page title |
+| `description` | Subtitle shown under the title |
+| `icon` | Lucide icon name for the sidebar |
+| `github` | GitHub repo name — enables Repository and Download buttons |
